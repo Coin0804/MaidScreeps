@@ -1,4 +1,5 @@
-const BlueMaid = require('blueMaid');
+import { Praetorium } from "@/entities/areas/praetorium";
+import { BlueMaid } from "./blueMaid";
 
 
 /**
@@ -9,15 +10,18 @@ const BlueMaid = require('blueMaid');
  * 很简单，去和女仆长约会吧。
  * 开玩笑~
  */
-function HouseKeeperMaid() {
+export class HouseKeeperMaid{
+    constructor(){
+        this.openHerEyes();
+    }
     /**
      * 接下来要做什么呢？
      * 去看看小蓝有没有偷懒吧。
      * 小黄应该……嗯，没问题
      * 还是先去捏捏小女仆长的脸蛋吧~
      */
-    this.openHerEyes = function(){
-        if (!Memory.HouseKeeperMaid) {
+    private openHerEyes(){
+        if (!Memory.houseKeeperMaidWorkSheet) {
             /**
              * “当然~交给我吧。不会辜负我最心爱❤的女仆长的信任的~”
              * “好，好。那我就静候佳音啦。”
@@ -31,11 +35,11 @@ function HouseKeeperMaid() {
      * 她开心的笑着
      * 开始了工作
      */
-    this.firstTimeWork = function(praetoriums){
+    public firstTimeWork(praetoriums:Praetorium[]){
         for (let praetorium of praetoriums) {
             praetorium.house.areas = {
                 studyroom:{
-                    leader:BlueMaid.hire(praetorium)
+                    leader:new BlueMaid(praetorium)
                 },
                 warehouse:null,
                 bedroom:null,
@@ -46,9 +50,3 @@ function HouseKeeperMaid() {
     }
 
 }
-
-
-
-
-
-module.exports = new HouseKeeperMaid();

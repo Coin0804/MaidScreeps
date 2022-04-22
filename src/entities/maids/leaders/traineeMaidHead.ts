@@ -1,17 +1,25 @@
+import { Praetorium } from "@/entities/areas/praetorium";
+
 /**
  * 要，要看吗……
  * 嗯……如果是主人的话
  * 要看也可以……
  * 呜，好害羞！
  */
-function TraineeMaidHead() {
+export default class TraineeMaidHead{
+    /**
+     * 耶，人见人爱的小萝莉诞生！
+     */
+    constructor(){
+        this.openHerEyes();
+    }
     /**
      * 新的一天！
      * 今天，见习女仆长也要加油！
      * 不能辜负大家的期待呀~
      */
-    this.openHerEyes = function(){
-        if(!Memory.traineeMaidHead){
+    openHerEyes(){
+        if(!Memory.traineeMaidHeadWorkSheet){
             /**
              * “我，我吗？”
              * 她很惊讶
@@ -37,9 +45,9 @@ function TraineeMaidHead() {
      * 抱过了女仆长递过的图纸
      * 走到了门外
      */
-    this.firstTimeWork = function(yardRooms,praetoriums){
-        if (yardRooms) {
-            for(room of yardRooms){
+    firstTimeWork(yardRooms:Room[],praetoriums:Praetorium[]){
+        if (yardRooms.length) {
+            for(let room of yardRooms){
 
                 //todo
 
@@ -54,10 +62,12 @@ function TraineeMaidHead() {
     }
 
 
-    this.openHerEyes();
+    
 
     //todo
 
+    public praetoriums:Praetorium[];
+    // TODO
 }
 
 
@@ -67,7 +77,3 @@ function TraineeMaidHead() {
 
 
 
-/**
- * 耶，人见人爱的小萝莉诞生！
- */
-module.exports = new TraineeMaidHead();
