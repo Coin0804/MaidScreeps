@@ -1,6 +1,6 @@
 import { Praetorium } from "@/entities/areas/praetorium";
 import { getUsername } from "@/modules/utils/utils";
-import { HouseKeeperMaid } from "./houseKeeperMaid";
+import HouseKeeperMaid from "./houseKeeperMaid";
 import TraineeMaidHead from "./traineeMaidHead";
 
 
@@ -13,85 +13,78 @@ import TraineeMaidHead from "./traineeMaidHead";
  * 真拿你没办法
  * 这次，就特别的原谅你把。
  */
-export class MaidHead{
+export class MaidHead implements LeaderMaid{
+    /**
+     * 以前从来没有招募女仆吧
+     * 不必担心，这不是一件难事
+     * 如果……一切正常……的话
+     */
     constructor(){
-        this.openHerEyes();
+        this.hired();
         //TODO
     }
 
     /**
      * 从中间人那里接到了通知
-     * 
+     * 女仆长卓越的才能得到了赏识
+     * 于是前来工作了！
      */
     private hired(){
         /**
-             * “让我来看看，情况如何……”
-             * 她长呼一口气，做好了心里准备
-             * 走进了带她前往工作地点的轿车
-             * 嗯？什么的心里准备？
+         * “让我来看看，情况如何……”
+         * 她长呼一口气，做好了心里准备
+         * 走进了带她前往工作地点的轿车
+         * 嗯？什么的心里准备？
+         */
+        let err:ReturnCode = this.partitionRooms();
+        if(err == ERR_NO_ROOM){
+            /**
+             * 看这房产商的沙盘
+             * 气氛有些尴尬。
+             * “这样的话根本没法开始工作嘛。”
+             * 她叹了口气，面无表情的看着你。
+             * “等什么时候你选好了住所，在来找我吧。”
              */
-         let err:ReturnCode = this.partitionRooms();
-         if(err == ERR_NO_ROOM){
-             /**
-              * 看这房产商的沙盘
-              * 气氛有些尴尬。
-              * “这样的话根本没法开始工作嘛。”
-              * 她叹了口气，面无表情的看着你。
-              * “等什么时候你选好了住所，在来找我吧。”
-              */
-             return err;
-         }else{
-             /**
-              * “这是？”
-              * 女仆长看着周围。
-              * “真是一栋好别墅啊。”她这么说着，
-              * 但不知是否真的这样想。
-              * “从今往后我就是你的女仆了，我会将这里打理好的，请主人放心吧。”
-              * 说完她举了个躬，开始了她的第一次工作。
-              */
-             err = this.firstTimeWork();
-             //todo
-         }
+            return err;
+        }else{
+            /**
+             * “这是？”
+             * 女仆长看着周围。
+             * “真是一栋好别墅啊。”她这么说着，
+             * 但不知是否真的这样想。
+             * “从今往后我就是你的女仆了，我会将这里打理好的，请主人放心吧。”
+             * 说完她举了个躬，开始了她的第一次工作。
+             */
+            err = this.firstTimeWork();
+        }
+        // TODO // 唔，还要todo吗？事情没干完吗？
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
-     * 每天早晨，女仆长都会从梦中醒来。
-     * 迎接新的一天，新的工作。
+     * 车辆穿过街道
+     * 在约定好的地方停下
+     * 她优雅的走下车门
+     * 抬起头
      */
-    public openHerEyes(){
-        /**
-         * 以前从来没有招募女仆吧
-         * 不必担心，这不是一件难事
-         * 如果……一切正常……的话
-         */
-        if(!Memory.maidHeadWorkSheet){
-            this.hired();
+    private partitionRooms(){
+        this.rooms = _.groupBy(Game.rooms,(room) => {// 现有房间分组
+            if(room.controller){// 没有控制器不认为是自己的房间
+                if(room.controller.my) return "house";// 控制器是自己的那就是“房子”
+                if(room.controller.reservation && room.controller.reservation.username == getUsername()){
+                    return "yard";// 被预定的房间就是“院子”
+                }
+            }
+            return "other";// 别的不用管了
+        });
+        if (!this.rooms.house) return ERR_NO_ROOM;// 没有“房子”，需要找一间
+        this.praetoriums = [];// 初始化数组
+        for (let house of this.rooms.house) {
+            this.praetoriums.push(new Praetorium(house));// 以每个“房子”为中心，创建“别墅”并推入数组。
+            /* 应该不会出事吧 */
         }
-        // TODO
+        return OK;
     }
-
     
-
-
-
     /**
      * 初次来到新的领地，要做的工作有很多
      * 要从什么开始呢？
@@ -112,7 +105,7 @@ export class MaidHead{
          */
         this.housekeeperMaid = new HouseKeeperMaid();
 
-        //todo
+        // TODO //不知道做什么
 
         /**
          * “听好了，接下来我要你帮忙确定下来院子的范围。”
@@ -133,30 +126,33 @@ export class MaidHead{
         return OK;
     }
 
+
+
+
+
+
+
+
+
     /**
-     * 车辆穿过街道
-     * 在约定好的地方停下
-     * 她优雅的走下车门
-     * 抬起头
+     * 每天早晨，女仆长都会从梦中醒来。
+     * 迎接新的一天，新的工作。
      */
-    private partitionRooms(){
-        this.rooms = _.groupBy(Game.rooms,(r) => {
-            if(!r.controller) return "other";
-            if(r.controller.my){
-                return "house";
-            }else if(r.controller.reservation && r.controller.reservation.username == getUsername()){
-                return "yard";
-            }else{
-                return "other";
-            }
-        });
-        if (!this.rooms.house) return ERR_NO_ROOM;
-        this.praetoriums = [];
-        for (let house of this.rooms.house) {
-            this.praetoriums.push(new Praetorium(house));
+    public openHerEyes(){
+        
+        if(!Memory.maidHeadWorkSheet){
+            
         }
-        return OK;
+        // TODO
     }
+
+    
+
+
+
+    
+
+    
 
 
     // /**
@@ -194,7 +190,5 @@ export class MaidHead{
     private traineeMaidHead:TraineeMaidHead;
     private housekeeperMaid:HouseKeeperMaid;
     private praetoriums:Praetorium[];
-    private rooms:{
-        [key:string]:Room[],
-    };
+    private rooms:{[key:string]:Room[]};
 }

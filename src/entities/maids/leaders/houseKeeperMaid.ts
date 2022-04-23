@@ -10,10 +10,22 @@ import { BlueMaid } from "./blueMaid";
  * 很简单，去和女仆长约会吧。
  * 开玩笑~
  */
-export class HouseKeeperMaid{
+export default class HouseKeeperMaid{
     constructor(){
         this.openHerEyes();
     }
+
+    /**
+     * “当然~交给我吧。不会辜负我最心爱❤的女仆长的信任的~”
+     * “好，好。那我就静候佳音啦。”
+     * “哼哼，真可爱。”
+     */
+    private hire(){
+        // TODO // 不知道做什么好
+    }
+
+
+
     /**
      * 接下来要做什么呢？
      * 去看看小蓝有没有偷懒吧。
@@ -22,11 +34,7 @@ export class HouseKeeperMaid{
      */
     private openHerEyes(){
         if (!Memory.houseKeeperMaidWorkSheet) {
-            /**
-             * “当然~交给我吧。不会辜负我最心爱❤的女仆长的信任的~”
-             * “好，好。那我就静候佳音啦。”
-             * “哼哼，真可爱。”
-             */
+            
         }
     }
 
@@ -36,17 +44,17 @@ export class HouseKeeperMaid{
      * 开始了工作
      */
     public firstTimeWork(praetoriums:Praetorium[]){
-        for (let praetorium of praetoriums) {
-            praetorium.house.areas = {
-                studyroom:{
-                    leader:new BlueMaid(praetorium)
-                },
-                warehouse:null,
-                bedroom:null,
-                kitchen:null,
-                balcony:null
-            }
-        }
+        // for (let praetorium of praetoriums) {
+        //     praetorium.house.areas = {
+        //         studyroom:{
+        //             leader:new BlueMaid(praetorium)
+        //         },
+        //         warehouse:null,
+        //         bedroom:null,
+        //         kitchen:null,
+        //         balcony:null
+        //     }
+        // }
     }
 
 }
