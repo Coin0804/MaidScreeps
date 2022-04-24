@@ -1,5 +1,7 @@
 import { Praetorium } from "@/entities/areas/praetorium";
+import { printEmphasize, printLine, printSay, printText, printWhisper } from "@/modules/utils/logtool";
 import { BlueMaid } from "./blueMaid";
+import MaidHead from "./maidHead";
 
 
 /**
@@ -10,15 +12,17 @@ import { BlueMaid } from "./blueMaid";
  * 很简单，去和女仆长约会吧。
  * 开玩笑~
  */
-export default class HouseKeeperMaid{
+export default class HouseKeeperMaid implements LeaderMaid{
+
     constructor(){
-        this.openHerEyes();
+        printEmphasize("女仆管家，随时待命！");
+        printLine()
+        this.say("当然~交给我吧。不会辜负我最心爱❤的女仆长的信任的~");
+        this.hire();
     }
 
     /**
-     * “当然~交给我吧。不会辜负我最心爱❤的女仆长的信任的~”
-     * “好，好。那我就静候佳音啦。”
-     * “哼哼，真可爱。”
+     * 
      */
     private hire(){
         // TODO // 不知道做什么好
@@ -57,4 +61,15 @@ export default class HouseKeeperMaid{
         // }
     }
 
+    public say(saying: string): void {
+        printSay(this.name,saying,"purple");
+    }
+
+    public whisper(saying:string){
+        printWhisper(this.name,saying,"purple");
+    }
+
+
+    private name = "HouseKeeperMaid";
+    private maidHead:MaidHead;
 }

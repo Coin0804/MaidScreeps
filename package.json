@@ -8,7 +8,8 @@
     "local": "rollup -cw --environment DEST:local",
     "build": "rollup -cw",
     "test": "jest",
-    "test-c": "jest --coverage"
+    "test-c": "jest --coverage",
+    "server": "rollup -cw --environment DEST:server"
   },
   "keywords": [],
   "author": "Coin0804",

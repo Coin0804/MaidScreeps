@@ -1,4 +1,6 @@
+import { ERR_NO_ROOM } from "@/constants";
 import { Praetorium } from "@/entities/areas/praetorium";
+import { printLine, printSay, printText } from "@/modules/utils/logtool";
 import { getUsername } from "@/modules/utils/utils";
 import HouseKeeperMaid from "./houseKeeperMaid";
 import TraineeMaidHead from "./traineeMaidHead";
@@ -13,48 +15,60 @@ import TraineeMaidHead from "./traineeMaidHead";
  * 真拿你没办法
  * 这次，就特别的原谅你把。
  */
-export class MaidHead implements LeaderMaid{
+export default class MaidHead implements LeaderMaid{
     /**
-     * 以前从来没有招募女仆吧
-     * 不必担心，这不是一件难事
-     * 如果……一切正常……的话
+     * 
      */
     constructor(){
+        printLine();
+        printText(
+            "以前从来没有招募女仆吧",
+            "不必担心，这不是一件难事",
+            "如果……一切正常……的话"
+        );
+        printLine();
+        printText(
+            "从中间人那里接到了通知",
+            "女仆长卓越的才能得到了赏识",
+            "于是前来工作了！"
+        );
         this.hired();
         //TODO
     }
 
+    
+
     /**
-     * 从中间人那里接到了通知
-     * 女仆长卓越的才能得到了赏识
-     * 于是前来工作了！
+     * 
      */
     private hired(){
+        printLine();
+        this.say("让我来看看，情况如何……");
+        printText(
+            "她长呼一口气，做好了心里准备",
+            "走进了带她前往工作地点的轿车",
+            "嗯？什么的心里准备？"
+        );
+
         /**
-         * “让我来看看，情况如何……”
-         * 她长呼一口气，做好了心里准备
-         * 走进了带她前往工作地点的轿车
-         * 嗯？什么的心里准备？
+         * 
          */
         let err:ReturnCode = this.partitionRooms();
         if(err == ERR_NO_ROOM){
-            /**
-             * 看这房产商的沙盘
-             * 气氛有些尴尬。
-             * “这样的话根本没法开始工作嘛。”
-             * 她叹了口气，面无表情的看着你。
-             * “等什么时候你选好了住所，在来找我吧。”
-             */
+            printLine();
+            printText("看这房产商的沙盘","气氛有些尴尬。");
+            this.say("这样的话根本没法开始工作嘛。");
+            printText("她叹了口气，面无表情的看着你。");
+            this.say("等什么时候你选好了住所，在来找我吧。");
             return err;
         }else{
-            /**
-             * “这是？”
-             * 女仆长看着周围。
-             * “真是一栋好别墅啊。”她这么说着，
-             * 但不知是否真的这样想。
-             * “从今往后我就是你的女仆了，我会将这里打理好的，请主人放心吧。”
-             * 说完她举了个躬，开始了她的第一次工作。
-             */
+            printLine();
+            this.say("这是？");
+            printText("女仆长看着周围。");
+            this.say("真是一栋好别墅啊。");
+            printText("她这么说着，","但不知是否真的这样想。");
+            this.say("从今往后我就是你的女仆了，我会将这里打理好的，请主人放心吧。");
+            printText("说完她举了个躬，开始了她的第一次工作。");
             err = this.firstTimeWork();
         }
         // TODO // 唔，还要todo吗？事情没干完吗？
@@ -76,7 +90,8 @@ export class MaidHead implements LeaderMaid{
             }
             return "other";// 别的不用管了
         });
-        if (!this.rooms.house) return ERR_NO_ROOM;// 没有“房子”，需要找一间
+        if(!this.rooms.house) return ERR_NO_ROOM;// 没有“房子”，需要找一间
+        if(!this.rooms.yard) this.rooms.yard = [];// 初始化数组
         this.praetoriums = [];// 初始化数组
         for (let house of this.rooms.house) {
             this.praetoriums.push(new Praetorium(house));// 以每个“房子”为中心，创建“别墅”并推入数组。
@@ -86,24 +101,35 @@ export class MaidHead implements LeaderMaid{
     }
     
     /**
-     * 初次来到新的领地，要做的工作有很多
-     * 要从什么开始呢？
-     * 对了，从招募新的人手开始吧。
+     * 
+     * 
+     * 
      */
     private firstTimeWork(){
-        /**
-         * 这个孩子的资质，嗯~
-         * 很优秀。
-         * 等我退休了，就让她来管理家产吧
-         */
+        printLine();
+        printText(
+            "初次来到新的领地，要做的工作有很多",
+            "要从什么开始呢？",
+            "对了，从招募新的人手开始吧。"
+        );
+        printLine();
+        printText(
+            "这个孩子的资质，嗯~",
+            "很优秀。",
+            "等她成熟了，就让她来管理家产吧"
+        );
         this.traineeMaidHead = new TraineeMaidHead();
-        /**
-         * 人员管理也不能拉下
-         * 女仆管家
-         * “交给你可以吗？”
-         * “行了别闹了，等我搞清楚了状况，下面的人就交给你来招募了。”
-         */
+        printLine();
+        printText("人员管理也不能拉下","女仆管家");
+        this.say("交给你可以吗？");
         this.housekeeperMaid = new HouseKeeperMaid();
+        this.say("行了别闹了，等我搞清楚了状况，下面的人就交给你来招募了。");
+        this.housekeeperMaid.say("好，好。那我就静候佳音啦。");
+        this.housekeeperMaid.whisper("哼哼，真可爱。")
+        /**
+         * 
+         */
+        
 
         // TODO //不知道做什么
 
@@ -184,11 +210,14 @@ export class MaidHead implements LeaderMaid{
 
 
 
-
+    public say(saying:string): void {
+        printSay(this.name,saying,"black");
+    }
     
     //todo
     private traineeMaidHead:TraineeMaidHead;
     private housekeeperMaid:HouseKeeperMaid;
     private praetoriums:Praetorium[];
     private rooms:{[key:string]:Room[]};
+    private name = "MaidHead";
 }
