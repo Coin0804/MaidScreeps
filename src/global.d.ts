@@ -3,6 +3,7 @@ declare module NodeJS {
         Game: Game
         Memory: Memory
         _: _.LoDashStatic
+        startTick:number
     }
 }
 

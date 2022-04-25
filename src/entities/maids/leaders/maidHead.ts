@@ -2,8 +2,8 @@ import { ERR_NO_ROOM } from "@/constants";
 import { Praetorium } from "@/entities/areas/praetorium";
 import { printLine, printSay, printText } from "@/modules/utils/logtool";
 import { getUsername } from "@/modules/utils/utils";
-import HouseKeeperMaid from "./houseKeeperMaid";
-import TraineeMaidHead from "./traineeMaidHead";
+import HouseKeeperMaid from "./HouseKeeperMaid";
+import TraineeMaidHead from "./TraineeMaidHead";
 
 
 
@@ -45,7 +45,7 @@ export default class MaidHead implements LeaderMaid{
         printLine();
         this.say("让我来看看，情况如何……");
         printText(
-            "她长呼一口气，做好了心里准备",
+            "她长呼一口气，做好了心理准备",
             "走进了带她前往工作地点的轿车",
             "嗯？什么的心里准备？"
         );
@@ -75,12 +75,10 @@ export default class MaidHead implements LeaderMaid{
     }
 
     /**
-     * 车辆穿过街道
-     * 在约定好的地方停下
-     * 她优雅的走下车门
-     * 抬起头
+     * 
      */
     private partitionRooms(){
+        printText("车辆穿过街道","在约定好的地方停下","她优雅的走下车门","抬起头");
         this.rooms = _.groupBy(Game.rooms,(room) => {// 现有房间分组
             if(room.controller){// 没有控制器不认为是自己的房间
                 if(room.controller.my) return "house";// 控制器是自己的那就是“房子”
@@ -133,16 +131,30 @@ export default class MaidHead implements LeaderMaid{
 
         // TODO //不知道做什么
 
+        printLine();
+        this.say("听好了，接下来我要你帮忙确定下来院子的范围。");
+        this.traineeMaidHead.say("我知道了……");
+        printText("她没有意识到自己的手拽着裙摆");
+        this.say("因为是刚刚开始，所以粗糙一点也关系的。");
+        this.say("好吗？");
+        this.traineeMaidHead.say("嗯！");
+        this.say("乖孩子。");
         /**
-         * “听好了，接下来我要你帮忙确定下来院子的范围。”
-         * “因为是刚刚开始，所以粗糙一点也关系的。”
-         * “好吗？”
-         * “乖孩子。”
+         * 
          */
-        this.traineeMaidHead.firstTimeWork(this.rooms.yard,this.praetoriums);
+        let err = this.traineeMaidHead.firstTimeWork(this.rooms.yard,this.praetoriums);
+        if(err == OK){// 目前必然是OK的
+            this.say("非常好，干的漂亮，第一次的工作完成的很棒");
+            printText("女仆长赞赏的摸了摸她的头");
+        }
+        printLine();
+        printText("改进行下一项工作了");
+        this.say("女仆管家");
+        this.housekeeperMaid.say("收到。");
+        printText("她开心的笑着","开始了工作");
+        printText("看来不需要多说什么了");
         /**
-         * “女仆管家”
-         * 看来不需要多说什么了
+         * 
          */
         this.housekeeperMaid.firstTimeWork(this.praetoriums);
 
@@ -219,5 +231,5 @@ export default class MaidHead implements LeaderMaid{
     private housekeeperMaid:HouseKeeperMaid;
     private praetoriums:Praetorium[];
     private rooms:{[key:string]:Room[]};
-    private name = "MaidHead";
+    public name = "MaidHead";
 }

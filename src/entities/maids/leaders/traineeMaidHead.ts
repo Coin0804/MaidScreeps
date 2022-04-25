@@ -1,5 +1,5 @@
 import { Praetorium, Yard } from "@/entities/areas/praetorium";
-import { printEmphasize, printLine, printSay, printText, printWhisper } from "@/modules/utils/logtool";
+import { printEmphasize, printLine, printLog, printSay, printText, printWhisper } from "@/modules/utils/logtool";
 
 /**
  * 要，要看吗……
@@ -31,13 +31,10 @@ export default class TraineeMaidHead implements LeaderMaid{
     }
 
     /**
-     * “我知道了……”
-     * 她没有意识到自己的手拽着裙摆
-     * “嗯！”
-     * 抱过了女仆长递过的图纸
-     * 走到了门外
+     * 
      */
     public firstTimeWork(yardRooms:Room[],praetoriums:Praetorium[]){// 划分外矿的位置
+        printText("抱过了女仆长递过的图纸","走到了门外");
         this.praetoriums = praetoriums;// 先保存“别墅”列表
         if (yardRooms.length) {// 如果已经有被预定的房间，会被直接认定成外矿
             for(let room of yardRooms){
@@ -46,14 +43,30 @@ export default class TraineeMaidHead implements LeaderMaid{
                 this.findBestPraetorium(yard).yards.push(yard);
             }
         }
+        printLine();
+        printText("见习女仆长开始汇报工作");
+        this.say(`目前一共有 ${praetoriums.length} 间别墅。`);
+        for(let p of praetoriums){
+            this.say(` ${p.house.room.name} 有 ${p.yards.length} 片院子`)
+            if(p.yards.length){
+                let info = "分别是：";
+                for(let y of p.yards){
+                    info.concat(y.room.name);
+                }
+                this.say(info);
+            }
+        }
+        this.say("以上就是全部了。");
         return OK;// 不知道哪里会出现不OK的情况。
     }
 
     /**
-     * “这里的话……分给这里吧。”
-     * 嘘，她在认真工作呢，先别打扰她吧~
+     * 
      */
     public findBestPraetorium(yard:Yard){// TODO:写的极其垃圾，都什么玩意儿啊，但是先用着。
+        printLine();
+        this.say("这里的话……分给这里吧。");
+        printText("她在认真工作呢，先别打扰她吧~");
         let praetorium:Praetorium;
         let minDistance = Infinity;
         for(let p of this.praetoriums){// 不必检验preatoriums的长度，因为只在hire中调用，此时是确保有长度的
@@ -83,7 +96,7 @@ export default class TraineeMaidHead implements LeaderMaid{
     // TODO
 
     public praetoriums:Praetorium[];
-    private name = "TraineeMaidHead";
+    public name = "TraineeMaidHead";
     // TODO
 }
 

@@ -1,4 +1,4 @@
 interface LeaderMaid{
-    // 空接口，仅仅用于类型识别（目前是）
+    name:string
     say(saying:string):void
 }

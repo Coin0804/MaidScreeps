@@ -4,13 +4,15 @@
  * 
  */
 
+import { getTime } from "./time";
+
 const BR = '<br>';
 
 function totext(s:string,{color = 'white',weight = 'normal',size = '15px'} = {}){
     return `<text style="color:${color};font-weight: ${weight};font-size:${size};">${s}</text>`;
 }
 
-function tolog(s:string){
+export function tolog(s:string){
     return `<text style="font-size:10px;font-style:italic">${s}</text>`;
 }
 
@@ -20,6 +22,11 @@ function tolog(s:string){
  */
 export function printSay(name:string,saying:string,color:string){
     let str = totext(name,{color:color,weight:"bolder",size:"16px"})+': “'+totext(saying)+'”';
+    console.log(str);
+}
+
+export function printSoftSay(name:string,saying:string,color:string){
+    let str = totext(name,{color:color,weight:"bolder",size:"16px"})+': “'+totext(saying.split('').join('~').concat("~"))+'”';
     console.log(str);
 }
 
@@ -38,9 +45,11 @@ export function printEmphasize(saying:string){
 }
 
 export function printLine(){
-    console.log('--------------------------');
+    console.log(`--------------${getTime()}-------------`);
 }
 
-export function printLog(log:string){
-    console.log(tolog(log));
+export function printLog(...logs:string[]){
+    let log = '';
+    logs.forEach((l) => {log.concat(tolog(l))});
+    console.log(log);
 }

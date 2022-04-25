@@ -1,7 +1,12 @@
 import { Praetorium } from "@/entities/areas/praetorium";
 import { printEmphasize, printLine, printSay, printText, printWhisper } from "@/modules/utils/logtool";
-import { BlueMaid } from "./blueMaid";
-import MaidHead from "./maidHead";
+import BlueMaid from "./BlueMaid";
+import ChocolateMaid from "./ChocolateMaid";
+import GreenMaid from "./GreenMaid";
+import MaidHead from "./MaidHead";
+import PinkMaid from "./PinkMaid";
+import RedMaid from "./RedMaid";
+import YellowMaid from "./YellowMaid";
 
 
 /**
@@ -37,28 +42,37 @@ export default class HouseKeeperMaid implements LeaderMaid{
      * 还是先去捏捏小女仆长的脸蛋吧~
      */
     private openHerEyes(){
-        if (!Memory.houseKeeperMaidWorkSheet) {
-            
-        }
+        
     }
 
     /**
-     * “收到。”
-     * 她开心的笑着
-     * 开始了工作
+     * 
      */
     public firstTimeWork(praetoriums:Praetorium[]){
-        // for (let praetorium of praetoriums) {
-        //     praetorium.house.areas = {
-        //         studyroom:{
-        //             leader:new BlueMaid(praetorium)
-        //         },
-        //         warehouse:null,
-        //         bedroom:null,
-        //         kitchen:null,
-        //         balcony:null
-        //     }
-        // }
+        printLine();
+        printText("每个别墅都要有足够的人手才行");
+        for(let praetorium of praetoriums) {// 初始化每个别墅的领导女仆
+            praetorium.house.areas = {
+                studyroom:{
+                    leader:new BlueMaid(praetorium)
+                },
+                warehouse:{
+                    leader:new YellowMaid(praetorium)
+                },
+                bedroom:{
+                    leader:new PinkMaid(praetorium)
+                },
+                kitchen:{
+                    leader:new GreenMaid(praetorium)
+                },
+                balcony:{
+                    leader:new RedMaid(praetorium)
+                },
+                garage:{
+                    leader:new ChocolateMaid(praetorium)
+                }
+            }
+        }
     }
 
     public say(saying: string): void {
@@ -70,6 +84,6 @@ export default class HouseKeeperMaid implements LeaderMaid{
     }
 
 
-    private name = "HouseKeeperMaid";
+    public name = "HouseKeeperMaid";
     private maidHead:MaidHead;
 }
