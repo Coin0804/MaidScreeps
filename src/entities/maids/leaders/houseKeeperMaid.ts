@@ -41,8 +41,8 @@ export default class HouseKeeperMaid implements LeaderMaid{
      * 小黄应该……嗯，没问题
      * 还是先去捏捏小女仆长的脸蛋吧~
      */
-    private openHerEyes(){
-        
+    public openHerEyes(){
+        return OK;
     }
 
     /**
@@ -52,26 +52,12 @@ export default class HouseKeeperMaid implements LeaderMaid{
         printLine();
         printText("每个别墅都要有足够的人手才行");
         for(let praetorium of praetoriums) {// 初始化每个别墅的领导女仆
-            praetorium.house.areas = {
-                studyroom:{
-                    leader:new BlueMaid(praetorium)
-                },
-                warehouse:{
-                    leader:new YellowMaid(praetorium)
-                },
-                bedroom:{
-                    leader:new PinkMaid(praetorium)
-                },
-                kitchen:{
-                    leader:new GreenMaid(praetorium)
-                },
-                balcony:{
-                    leader:new RedMaid(praetorium)
-                },
-                garage:{
-                    leader:new ChocolateMaid(praetorium)
-                }
-            }
+            new BlueMaid(praetorium);
+            new YellowMaid(praetorium);
+            new PinkMaid(praetorium);
+            new GreenMaid(praetorium);
+            new RedMaid(praetorium);
+            new ChocolateMaid(praetorium);
         }
     }
 

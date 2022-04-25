@@ -87,7 +87,7 @@ export default class TraineeMaidHead implements LeaderMaid{
      * 不能辜负大家的期待呀~
      */
     public openHerEyes(){
-        
+        return OK;
     }
 
     public say(saying: string): void {

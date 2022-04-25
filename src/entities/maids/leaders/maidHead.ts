@@ -178,9 +178,7 @@ export default class MaidHead implements LeaderMaid{
      */
     public openHerEyes(){
         
-        if(!Memory.maidHeadWorkSheet){
-            
-        }
+        return OK;
         // TODO
     }
 
@@ -217,8 +215,17 @@ export default class MaidHead implements LeaderMaid{
 
 
 
-
-
+    /**
+     * 
+     */
+    private createArtwork(){
+        if(Game.cpu.bucket == 10000){
+            let err = Game.cpu.generatePixel();
+            if(err == OK){
+                printText("闲暇时间，女仆们会进行艺术创作，今天，又一个崭新的作品诞生啦。");
+            }
+        }
+    }
 
 
 
