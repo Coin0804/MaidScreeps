@@ -1,7 +1,7 @@
 import { ERR_NO_ROOM } from "@/constants";
 import { Praetorium } from "@/entities/areas/praetorium";
-import { printLine, printSay, printText } from "@/modules/utils/logtool";
-import { getUsername } from "@/modules/utils/utils";
+import { printLine, printSay, printText } from "@u/logtool";
+import { getUsername } from "@u/utils";
 import HouseKeeperMaid from "./HouseKeeperMaid";
 import TraineeMaidHead from "./TraineeMaidHead";
 

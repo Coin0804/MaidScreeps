@@ -1,5 +1,5 @@
 import { Praetorium } from "@/entities/areas/praetorium";
-import { printEmphasize, printLine, printSay, printText, printWhisper } from "@/modules/utils/logtool";
+import { printEmphasize, printLine, printSay, printText, printWhisper } from "@u/logtool";
 import BlueMaid from "./BlueMaid";
 import ChocolateMaid from "./ChocolateMaid";
 import GreenMaid from "./GreenMaid";

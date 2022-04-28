@@ -45,7 +45,7 @@ export function printEmphasize(saying:string){
 }
 
 export function printLine(){
-    console.log(`--------------${getTime()}-------------`);
+    console.log(`--------------${tolog(getTime())}-------------`);
 }
 
 export function printLog(...logs:string[]){
