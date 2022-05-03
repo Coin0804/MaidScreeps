@@ -42,6 +42,8 @@ export default class HouseKeeperMaid implements LeaderMaid{
      * 还是先去捏捏小女仆长的脸蛋吧~
      */
     public openHerEyes(){
+
+        
         return OK;
     }
 

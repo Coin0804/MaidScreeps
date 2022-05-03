@@ -1,9 +1,9 @@
-type ERR_NO_ROOM = -1
+type ERR_NO_ROOM = -1;
 
 
 
 
-type ReturnCode = OK|ERR_NO_ROOM;
+type ReturnCode = ERR_NO_ROOM|CreepActionReturnCode;
 
 
 

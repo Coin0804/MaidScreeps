@@ -1,5 +1,6 @@
 import { ERR_NO_ROOM } from "@/constants";
 import { Praetorium } from "@/entities/areas/praetorium";
+import { myorderof } from "@/modules/utils/market";
 import { printLine, printSay, printText } from "@u/logtool";
 import { getUsername } from "@u/utils";
 import HouseKeeperMaid from "./HouseKeeperMaid";
@@ -178,6 +179,9 @@ export default class MaidHead implements LeaderMaid{
      */
     public openHerEyes(){
         
+        this.housekeeperMaid.openHerEyes();
+
+        this.createArtwork();
         return OK;
         // TODO
     }
@@ -224,13 +228,48 @@ export default class MaidHead implements LeaderMaid{
             if(err == OK){
                 printText("闲暇时间，女仆们会进行艺术创作，今天，又一个崭新的作品诞生啦。");
             }
+            return err;
         }
     }
 
 
 
+    public newPraetoriumAt(){
+        this.TODO("购置房产");
+    }
+
+    public hireCleaner(room:string,birthRoomIndex = 0){
+        this.TODO("雇佣钟点工");
+    }
+
+    public sellArtwork(price:number,amount:number){
+        let artworkOrders = myorderof(PIXEL);
+        let artworks:number = Game.resources[PIXEL];
+        if(artworks <= artworkOrders.totalamount + amount){
+            this.say("现有的艺术品都已经在出售了,耐心一些等以后再考虑这件事吧。");
+            return ERR_NOT_ENOUGH_RESOURCES;
+        }
+        let err = Game.market.createOrder({type:ORDER_SELL,resourceType:PIXEL,price:price,totalAmount:amount});
+        if(err == OK){
+            this.say(`女仆们创作的${amount}件艺术品已经准备以${price}了。`);
+        }
+    }
+
+    
+
+
+
+
+
+
+
+
     public say(saying:string): void {
         printSay(this.name,saying,"black");
+    }
+
+    private TODO(issue:string){
+        this.say(`现在还没有做${issue}的空闲。`)
     }
     
     //todo

@@ -5,13 +5,13 @@
         "outDir": "dist/",
         "baseUrl": "./",
         "sourceMap": false,
-        "types": ["node", "screeps"],
+        "types": ["node", "screeps", "vitest"],
         "allowSyntheticDefaultImports": true,
         "paths": {
             "@/*": ["./src/*"],
             "@mock/*": ["./src/test/mock/*"],
             "@m/*": ["./src/entities/maids/*"],
-            "@u/*": ["./src/modules/utils/*"],
+            "@u/*": ["./src/modules/utils/*"]
         }
     },
     "exclude": [
