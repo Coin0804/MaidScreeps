@@ -2,6 +2,8 @@
  * 
  */
 
+import { repeat } from "@/modules/utils/arrayUtils";
+
 /**
  * 输入BodyPart类型的对象，转换成数组，详见
  * @see ./index.d.ts
@@ -35,7 +37,9 @@ function codeToBody(s:string){
     return array;
 }
 
-
+function moduleToBody(module:BodyPartConstant[],time:number){
+    return repeat(module,time) as BodyPartConstant[];
+}
 
 /**
  * 

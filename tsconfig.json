@@ -9,7 +9,7 @@
         "allowSyntheticDefaultImports": true,
         "paths": {
             "@/*": ["./src/*"],
-            "@mock/*": ["./src/test/mock/*"],
+            "@mock/*": ["test/mock/*"],
             "@m/*": ["./src/entities/maids/*"],
             "@u/*": ["./src/modules/utils/*"]
         }
@@ -18,6 +18,7 @@
         "node_modules"
     ],
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "test/**/*.ts"
     ]
 }

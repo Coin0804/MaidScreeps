@@ -2,7 +2,7 @@
 
 import { BODYS } from "@/entities/maids/staffs/bodys/bodys";
 import { repeat } from "@/modules/utils/arrayUtils";
-import { expect, test } from "vitest";
+import { expect, it, test } from "vitest";
 
 test('优雅部件',function(){
     let part = BODYS.battleMaid.final["superMaid"];
@@ -11,14 +11,18 @@ test('优雅部件',function(){
     expect(part).toEqual([ATTACK,CARRY])
 });
 
-test('递归连接重复',function(){
+it('递归连接重复',function(){
+    console.time("d")
     const array = BODYS.battleMaid.final["superMaid"];
-    expect(repeat(array,10000).length).toBe(500000);
+    expect(repeat(array,100000).length).toBe(5000000);
+    console.timeEnd("d")
 });
 
 // it('循环插入重复',function(){
+//     console.time("d")
 //     const array = BODYS.battleMaid.final["superMaid"];
-//     expect(repeatFor(array,10000).length).toBe(500000);
+//     expect(repeatFor(array,100000).length).toBe(5000000);
+//     console.timeEnd("d")
 // });
 
 // it('扁平化重复',function(){

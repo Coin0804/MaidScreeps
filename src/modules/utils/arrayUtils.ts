@@ -5,6 +5,11 @@
 
 // }
 
+// export function repeat(array:any[],time:number){
+//     if(time <= 1) return array;
+//     return repeat(array,Math.floor(time/2)).concat(repeat(array,Math.ceil(time/2)));
+// }
+
 export function repeat(array:any[],time:number){
     let re = [];
     for(let i=0;i<time;i++){
@@ -14,3 +19,5 @@ export function repeat(array:any[],time:number){
     }
     return re;
 }
+
+
