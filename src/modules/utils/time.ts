@@ -7,6 +7,20 @@ export function getTime(original = true){
     return t;
 }
 
-export function getDate(original = false){
-    
+export class Calendar{
+    constructor(){
+        this.startDate = Game.time;
+    }
+    private startDate:number;
+    private today:number;
+
+    nextDay(){
+        this.today++;
+    }
+    /**
+     * TODO: 未来可能会添加不同年份月份和日期，在不同的时期对话可能不同（画饼）
+     */
+    getDate(original = false){
+        return `今天是开展工作的第${this.today}天。`;
+    }
 }

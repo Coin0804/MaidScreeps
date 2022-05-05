@@ -1,16 +1,11 @@
-import MaidHead from "./entities/maids/leaders/MaidHead";
+import { projects } from "./entities/schedule/Project";
+import Schedule from "./entities/schedule/Schedule";
 import ErrorHandler from "./modules/ErrorHandler";
-
-import { printEmphasize, printLine } from "./modules/utils/logtool";
-
+import { Calendar } from "./modules/utils/time";
 
 //获取模组
 
-
-
-// global.startTick = Game.time;
-printEmphasize('迎接吧！最能“干”的女仆长！');
-global.maidHead = new MaidHead();// 如果之前没有的话就要从头开始新建工作表
+// 如果之前没有的话就要从头开始新建工作表
 // 工作表其实就是整个游戏运行的计划表，所有的工作都会从工作表中读取并展开
 // 如果已经有了工作表
 // 那么就要从工作表中恢复
@@ -19,6 +14,12 @@ global.maidHead = new MaidHead();// 如果之前没有的话就要从头开始�
 
 // 
 
+const calender = new Calendar();
+const schedule0 = new Schedule(0);
+schedule0.addToToday(projects[0]);
+
+global.calender = calender;
+global.schedule = schedule0;
 
 export const loop = ErrorHandler(function(){
     /* 主循环开始 */
