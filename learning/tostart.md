@@ -1,20 +1,23 @@
 npm init -y
 
 npm install -D @types/lodash@3.10.1 @types/screeps
+
 `src` => main.js
 
 npm install -D rollup
 
 `package.json`
 
+```json
     "scripts": {
       "build": "rollup -cw",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
-
+```
 `rollup.config.js`
 
-    // 告诉 rollup 他要打包什么
+```js
+// 告诉 rollup 他要打包什么
     export default {
         // 源代码的入口是哪个文件
         input: 'src/main.js',
@@ -26,6 +29,7 @@ npm install -D rollup
             sourcemap: true
         }
     };
+```
 
 npm run build
 
