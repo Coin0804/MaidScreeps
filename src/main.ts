@@ -1,7 +1,7 @@
 import { projects } from "./entities/schedule/Project";
 import Schedule from "./entities/schedule/Schedule";
 import ErrorHandler from "./modules/ErrorHandler";
-import { printLine, printText } from "./modules/utils/logtool";
+import { printLine, printLog, printText } from "./modules/utils/logtool";
 import { Calendar } from "./modules/utils/time";
 
 //导入依赖
@@ -28,7 +28,26 @@ export const loop = ErrorHandler(function(){
     }
     // 查看日程安排并执行
     if(schedule.presentDate == calender.getToday()){
-
+        for(let i=0;i<schedule.projectToday.length;i++){// 根据预期，中间的代码段应该会每次都执行一次，所以只要有插入就不会停止
+            let item = schedule.projectToday[i];
+            if(item.done) continue;// 一般不可能发生，先放着
+            if(item.project.timeneed+Game.cpu.getUsed() < Game.cpu.limit || item.project.nolimit){
+                printLine();
+                printLog(`开始执行第 ${i} 个项目`);
+                let err = item.project.todo();// TODO:这里应该独立处理异常，代办
+                if(err == OK) item.done = true;
+                else printLog(`发生问题，返回代码${err}`);
+                printLine();
+                printLog(`项目 ${i} 执行结束`);
+                // 完成执行的项目如果有指定的后续的话，就会在最后插入
+                // 这里决定了如果下一个项目指向了0号项目，那么一定不会被执行。
+                //0号项目只能作为日程的起点，不能作为后续。
+                if(item.project.nextProject){ 
+                    schedule.addToToday(projects[item.project.nextProject]);
+                }
+            }
+        }
+        printLog(`今天所有项目均已执行完毕`);
     }
     // 全部执行结束或超时主动终止
     if(global.maidHead){
@@ -39,7 +58,7 @@ export const loop = ErrorHandler(function(){
         schedule = new Schedule(calender.getToday(),projects[0]);
     }
 
-    if(!projectsDone){// 目前不可能发生，作为debug标志
+    if(!projectsDone){// 一般不可能发生，作为debug标志
         printLine();
         printText("今天怎么没有事情干！");
     }
