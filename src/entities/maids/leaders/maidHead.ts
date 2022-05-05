@@ -1,5 +1,6 @@
 import { ERR_NO_ROOM } from "@/constants";
 import { Praetorium } from "@/entities/areas/praetorium";
+import Schedule from "@/entities/schedule/Schedule";
 import { myorderof } from "@/modules/utils/market";
 import { printLine, printSay, printText } from "@u/logtool";
 import { getUsername } from "@u/utils";
@@ -17,6 +18,7 @@ import TraineeMaidHead from "./TraineeMaidHead";
  * 这次，就特别的原谅你把。
  */
 export default class MaidHead implements LeaderMaid{
+    
     /**
      * 
      */
@@ -188,7 +190,9 @@ export default class MaidHead implements LeaderMaid{
 
     
 
-
+    public makeScheduleNextDay(schedule:Schedule):Schedule{
+        return schedule;
+    }
 
     
 

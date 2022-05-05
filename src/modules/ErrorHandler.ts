@@ -1,7 +1,7 @@
 export default function(loop:Function){
     return function(){
         try {
-            loop();// 执行玩家代码
+            loop();// 执行代码
         }
         catch(e){
             if(e instanceof Error){

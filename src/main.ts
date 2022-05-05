@@ -1,34 +1,47 @@
 import { projects } from "./entities/schedule/Project";
 import Schedule from "./entities/schedule/Schedule";
 import ErrorHandler from "./modules/ErrorHandler";
+import { printLine, printText } from "./modules/utils/logtool";
 import { Calendar } from "./modules/utils/time";
 
-//获取模组
+//导入依赖
 
-// 如果之前没有的话就要从头开始新建工作表
-// 工作表其实就是整个游戏运行的计划表，所有的工作都会从工作表中读取并展开
-// 如果已经有了工作表
-// 那么就要从工作表中恢复
-
-// 总而言之到此时，应该已经完成了所有前期信息的收集，应该可以开始正常工作了
-
-// 
-
+//极小初始化
 const calender = new Calendar();
-const schedule0 = new Schedule(0);
-schedule0.addToToday(projects[0]);
-
-global.calender = calender;
-global.schedule = schedule0;
-
+global.calender = calender;// 全局日历
+let schedule = new Schedule(1,projects[0]);// 初始化零号日程
+/* 主循环开始 */
 export const loop = ErrorHandler(function(){
-    /* 主循环开始 */
-    // const workdays = Game.time - global.startTick;
-    // printLine();
+    /**
+     * 又到了新的一天
+     */
+    calender.nextDay();// 天数+1
+    /**
+     * 今天要做什么事情呢？
+     */
+    let projectsDone = 0 // 定义完成项目数
+    // 继承之前制定的日程
+    if(schedule.presentDate+1 == calender.getToday()){
+        schedule.projectToday = schedule.projectTomorrow;
+        schedule.projectTomorrow = [];
+        schedule.presentDate = calender.getToday();
+    }
+    // 查看日程安排并执行
+    if(schedule.presentDate == calender.getToday()){
 
-    // TODO：回收无用的记忆，什么样的记忆是无用的？
+    }
+    // 全部执行结束或超时主动终止
+    if(global.maidHead){
+        // 定制明天的日程
+        schedule = global.maidHead.makeScheduleNextDay(schedule);
+    }else{
+        // 没有女仆长就一直进行一个仅包含零号项目的日程
+        schedule = new Schedule(calender.getToday(),projects[0]);
+    }
 
-    global.maidHead.openHerEyes();//进行日常工作
-
-
+    if(!projectsDone){// 目前不可能发生，作为debug标志
+        printLine();
+        printText("今天怎么没有事情干！");
+    }
+    /* 主循环结束 */
 });

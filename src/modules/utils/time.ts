@@ -17,6 +17,9 @@ export class Calendar{
     nextDay(){
         this.today++;
     }
+    getToday(){
+        return this.today;
+    }
     /**
      * TODO: 未来可能会添加不同年份月份和日期，在不同的时期对话可能不同（画饼）
      */

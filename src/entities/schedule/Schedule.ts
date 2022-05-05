@@ -1,6 +1,9 @@
 export default class Schedule{
-    constructor(time:number){
+    constructor(time:number,...projects:Project[]){
         this.presentDate = time;
+        for(let p of projects){
+            this.addToToday(p);
+        }
     }
 
     addToToday(project:Project){
@@ -8,6 +11,6 @@ export default class Schedule{
     }
 
     presentDate:number;
-    private projectToday:{project:Project,done:boolean}[];
-    private projectTomorrow:{project:Project,done:boolean}[];
+    projectToday:{project:Project,done:boolean}[];
+    projectTomorrow:{project:Project,done:boolean}[];
 }
