@@ -1,15 +1,12 @@
 import { ERR_NO_ROOM } from "@/constants";
 import { Praetorium } from "@/entities/areas/praetorium";
+import { projects } from "@/entities/schedule/Project";
 import Schedule from "@/entities/schedule/Schedule";
 import { myorderof } from "@/modules/utils/market";
 import { printLine, printSay, printText } from "@u/logtool";
 import { getUsername } from "@u/utils";
 import HouseKeeperMaid from "./HouseKeeperMaid";
 import TraineeMaidHead from "./TraineeMaidHead";
-
-
-
-
 
 /**
  * 诶呀，要偷窥女孩子的里面吗？
@@ -189,8 +186,12 @@ export default class MaidHead implements LeaderMaid{
     }
 
     
-
+    /**
+     * 
+     */
     public makeScheduleNextDay(schedule:Schedule):Schedule{
+        // TODO:现在没有完成，临时用一下
+        schedule.addToTomorrow(projects[1])
         return schedule;
     }
 

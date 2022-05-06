@@ -1,6 +1,6 @@
 interface Project{
     todo :()=>ReturnCode
-    nextProject :number
+    nextProject :number|string
     timeneed :number
     nolimit ?:boolean
 }

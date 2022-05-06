@@ -78,6 +78,8 @@ export class Yard{
  */
 export abstract class Area{
     abstract leader:LeaderMaid;
+    abstract staffList:Staff[];
+    abstract taskList:Task[];
 }
 
 /**
@@ -85,6 +87,8 @@ export abstract class Area{
  */
 export class Studyroom extends Area{
     leader: LeaderMaid;
+    staffList: Staff[];
+    taskList: Task[];
 }
 
 
@@ -93,20 +97,26 @@ export class Studyroom extends Area{
  */
 export class Warehouse extends Area{
     leader: LeaderMaid;
+    staffList: Staff[];
+    taskList: Task[];
 }
 
 /**
  * 卧室类
  */
 export class Bedroom extends Area{
+    staffList: Staff[];
     leader: LeaderMaid;
+    taskList: Task[];
 }
 
 /**
  * 车库类
  */
 export class Garage extends Area{
+    staffList: Staff[];
     leader: LeaderMaid;
+    taskList: Task[];
 }
 
 
@@ -114,12 +124,16 @@ export class Garage extends Area{
  * 厨房类
  */
 export class Kitchen extends Area{
+    staffList: Staff[];
     leader: LeaderMaid;
+    taskList: Task[];
 }
 
 /**
  * 阳台类
  */
 export class Balcony extends Area{
+    staffList: Staff[];
     leader: LeaderMaid;
+    taskList: Task[];
 }

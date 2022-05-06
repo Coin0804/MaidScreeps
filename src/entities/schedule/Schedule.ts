@@ -10,6 +10,10 @@ export default class Schedule{
         this.projectToday.push({project:project,done:false});
     }
 
+    addToTomorrow(project:Project){
+        this.projectTomorrow.push({project:project,done:false});
+    }
+
     presentDate:number;
     projectToday:{project:Project,done:boolean}[];
     projectTomorrow:{project:Project,done:boolean}[];

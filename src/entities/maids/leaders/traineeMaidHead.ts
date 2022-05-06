@@ -32,6 +32,7 @@ export default class TraineeMaidHead implements LeaderMaid{
 
     /**
      * 
+     * TOTEST:还没有测试过！！
      */
     public firstTimeWork(yardRooms:Room[],praetoriums:Praetorium[]){// 划分外矿的位置
         printText("抱过了女仆长递过的图纸","走到了门外");
