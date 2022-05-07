@@ -1,28 +1,36 @@
-export function myorderof(resourceType:MarketResourceConstant){
-    let orders = {
-        list:[],
-        totalamount:0,
-        totalprice:0,
-        maxprice:0,
-        maxid:undefined,
-        minprice:0,
-        minid:undefined
-    };
-    for(let id in Game.market.orders){
-        let order = Game.market.orders[id];
-        if(order.active && order.resourceType == resourceType){
-            orders.totalamount += order.remainingAmount;
-            orders.totalprice += order.remainingAmount*order.price;
-            orders.list.push(order);
-            if(!orders.minid || order.price < orders.minprice){
-                orders.minprice = order.price;
-                orders.minid = order.id;
+class Orders{
+    constructor(list:Order[]){
+        this.list = list;
+        this.totalamount = 0;
+        this.totalprice = 0;
+        for(let order of list){// 在一次遍历中要做的事情很多，所以不适用reduce等方法，提高效率
+            this.totalamount += order.remainingAmount;
+            this.totalprice += order.remainingAmount*order.price;
+            if(!this.minid || order.price < this.minprice){
+                this.minprice = order.price;
+                this.minid = order.id;
             }
-            if(!orders.minid || order.price > orders.maxprice){
-                orders.maxprice = order.price;
-                orders.maxid = order.id;
+            if(!this.minid || order.price > this.maxprice){
+                this.maxprice = order.price;
+                this.maxid = order.id;
             }
         }
     }
-    return orders;
+
+    list:Order[];
+    totalamount:number;
+    totalprice:number;
+    maxprice:number;
+    maxid:string;
+    minprice:number;
+    minid:string;
+}
+
+/**
+ * 
+ * 获取我的某个种类的订单
+ */
+export function myorderof(resourceType:MarketResourceConstant){
+    let list = _.filter(Game.market.orders,(o) => o.active && o.resourceType == resourceType);
+    return new Orders(list);
 }

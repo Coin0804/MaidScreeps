@@ -1,5 +1,6 @@
-import { Praetorium } from "@/entities/areas/praetorium";
-import { printSoftSay } from "@/modules/utils/logtool";
+import { Praetorium, Studyroom } from "@/entities/areas/praetorium";
+import { Tool } from "@/entities/tool/Tool";
+import { printSoftSay, printText } from "@/modules/utils/logtool";
 
 /**
  * 谁啊……
@@ -7,12 +8,26 @@ import { printSoftSay } from "@/modules/utils/logtool";
  * 你想做什么就做什么吧……
  * zzz
  */
-export default class BlueMaid implements LeaderMaid{// TODO:负责实验室合成相关事项，目前没有想法，所以应该是没什么事做的
+export default class BlueMaid implements AreaLeaderMaid{// TODO:负责实验室合成相关事项，目前没有想法，所以应该是没什么事做的
     constructor(praetorium:Praetorium){
         this.praetorium = praetorium;
-        this.name = `BlueMaid in ${praetorium.house.room.name}`;
-        praetorium.house.areas.studyroom.leader = this;
+        praetorium.leaders.push(this);
+        this.name = `BlueMaid in ${praetorium.house.room}`;
+        this.area = praetorium.house.areas.studyroom;
+        this.area.leader = this;
         this.say("在叫我吗");
+    }
+
+    public doPerpare(): ReturnCode {
+        printText("小蓝在摸鱼");
+        let labs:StructureLab[] = this.praetorium.house.getRoom()
+        .find(FIND_STRUCTURES,{filter:(s) => s.structureType == STRUCTURE_LAB});
+        this.area.tools = {
+            labs:labs.map((lab) => {return (new Tool(lab))}),
+            reactantLabs:[],
+            productLabs:[]
+        };
+        return OK;
     }
 
     public openHerEyes(): ReturnCode {
@@ -23,6 +38,7 @@ export default class BlueMaid implements LeaderMaid{// TODO:负责实验室合�
         printSoftSay(this.name,saying,"lightblue");
     }
 
+    public area: Studyroom;
     public name:string;
     private praetorium:Praetorium;
 

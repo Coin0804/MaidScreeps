@@ -4,7 +4,7 @@
 
 /**
  * 获取自己的用户名
- * // TODO: 真就没办法改吗……
+ * 所有事项必须保证在有至少一个spawn的情况下进行
  */
 export function getUsername(){
     if(Memory.USERNAME) return Memory.USERNAME;

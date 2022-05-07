@@ -20,9 +20,13 @@
  * @see 
  */
 
-
 interface LeaderMaid{
     name:string
     say(saying:string):void
     openHerEyes():ReturnCode
+    doPerpare():ReturnCode
+}
+
+interface AreaLeaderMaid extends LeaderMaid{
+    area:Area;
 }

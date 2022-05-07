@@ -4,6 +4,7 @@
  * 
  */
 
+import { CONFIG } from "@/config";
 import { getTime } from "./time";
 
 const BR = '<br>';
@@ -49,7 +50,20 @@ export function printLine(){
 }
 
 export function printLog(...logs:string[]){
-    let log = '';
-    logs.forEach((l) => {log.concat(tolog(l))});
-    console.log(log);
+    if(CONFIG.log.enable && CONFIG.log.detail.log.enable){
+        let log = '';
+        logs.map((l) => {log = log.concat(tolog(l))});
+        console.log(log);
+    }
+}
+
+export function printLineLog(...logs:string[]){
+    if(CONFIG.log.enable && CONFIG.log.detail.log.enable){
+        printLine();
+        printLog(...logs);
+    }
+}
+
+export function printErr(e:Error){
+    if(CONFIG.log.enable) console.log(`<text style="color:#ef9a9a"><br>${_.escape(e.stack)}</text>`);
 }

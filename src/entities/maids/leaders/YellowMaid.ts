@@ -8,13 +8,18 @@ import { printSay } from "@/modules/utils/logtool";
  * 呜，当然不可以啦！
  * 诶等————
  */
-export default class YellowMaid implements LeaderMaid{
+export default class YellowMaid implements AreaLeaderMaid{
     constructor(praetorium:Praetorium){
         this.praetorium = praetorium;
-        this.name = `BlueMaid in ${praetorium.house.room.name}`;
+        praetorium.leaders.push(this);
+        this.name = `BlueMaid in ${praetorium.house.room}`;
         this.area = praetorium.house.areas.warehouse;
         this.area.leader = this;
         this.hired();
+    }
+
+    public doPerpare(): ReturnCode {
+        return OK;
     }
 
     private hired(){
@@ -29,7 +34,8 @@ export default class YellowMaid implements LeaderMaid{
         printSay(this.name,saying,"glod");
     }
 
+
     public name: string;
     private praetorium:Praetorium;
-    private area:Warehouse;
+    public area:Warehouse;
 }

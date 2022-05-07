@@ -19,9 +19,10 @@ import YellowMaid from "./YellowMaid";
  */
 export default class HouseKeeperMaid implements LeaderMaid{
 
-    constructor(){
+    constructor(maidHead:MaidHead){
+        this.maidHead = maidHead;
         printEmphasize("女仆管家，随时待命！");
-        printLine()
+        printLine();
         this.say("当然~交给我吧。不会辜负我最心爱❤的女仆长的信任的~");
         this.hire();
     }
@@ -53,6 +54,7 @@ export default class HouseKeeperMaid implements LeaderMaid{
     public firstTimeWork(praetoriums:Praetorium[]){
         printLine();
         printText("每个别墅都要有足够的人手才行");
+        this.praetoriums = praetoriums;
         for(let praetorium of praetoriums) {// 初始化每个别墅的领导女仆
             new BlueMaid(praetorium);
             new YellowMaid(praetorium);
@@ -61,6 +63,17 @@ export default class HouseKeeperMaid implements LeaderMaid{
             new RedMaid(praetorium);
             new ChocolateMaid(praetorium);
         }
+    }
+
+    public doPerpare(){
+        this.say("辛苦了~");
+        printText("她向女仆长回复到，然后安排起来工作。");
+        for(let praetorium of this.praetoriums){
+            for(let leader of praetorium.leaders){
+                leader.doPerpare();
+            }
+        }
+        return OK;
     }
 
     public say(saying: string): void {
@@ -74,4 +87,5 @@ export default class HouseKeeperMaid implements LeaderMaid{
 
     public name = "HouseKeeperMaid";
     private maidHead:MaidHead;
+    private praetoriums:Praetorium[];
 }

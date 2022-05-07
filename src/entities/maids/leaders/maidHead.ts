@@ -1,6 +1,7 @@
 import { ERR_NO_ROOM } from "@/constants";
 import { Praetorium } from "@/entities/areas/praetorium";
-import { projects } from "@/entities/schedule/Project";
+import { Plans } from "@/entities/plan/plans";
+import { projects } from "@/entities/schedule/projects";
 import Schedule from "@/entities/schedule/Schedule";
 import { myorderof } from "@/modules/utils/market";
 import { printLine, printSay, printText } from "@u/logtool";
@@ -120,10 +121,10 @@ export default class MaidHead implements LeaderMaid{
         printLine();
         printText("人员管理也不能拉下","女仆管家");
         this.say("交给你可以吗？");
-        this.housekeeperMaid = new HouseKeeperMaid();
+        this.houseKeeperMaid = new HouseKeeperMaid(this);
         this.say("行了别闹了，等我搞清楚了状况，下面的人就交给你来招募了。");
-        this.housekeeperMaid.say("好，好。那我就静候佳音啦。");
-        this.housekeeperMaid.whisper("哼哼，真可爱。")
+        this.houseKeeperMaid.say("好，好。那我就静候佳音啦。");
+        this.houseKeeperMaid.whisper("哼哼，真可爱。")
         /**
          * 
          */
@@ -150,13 +151,13 @@ export default class MaidHead implements LeaderMaid{
         printLine();
         printText("改进行下一项工作了");
         this.say("女仆管家");
-        this.housekeeperMaid.say("收到。");
+        this.houseKeeperMaid.say("收到。");
         printText("她开心的笑着","开始了工作");
         printText("看来不需要多说什么了");
         /**
          * 
          */
-        this.housekeeperMaid.firstTimeWork(this.praetoriums);
+        this.houseKeeperMaid.firstTimeWork(this.praetoriums);
 
         /**
          * 这样的话，工作就完成了。
@@ -165,10 +166,23 @@ export default class MaidHead implements LeaderMaid{
     }
 
 
+    private makeDefaultPlan(){
+        this.say("一开始的话，这样计划就好了吧。");
+        for(let praetorium of this.praetoriums){
+            praetorium.plan = Plans.default;
+        }
+    }
 
 
-
-
+    public doPerpare(){
+        this.say("女仆们，是时候忙碌起来了。");
+        this.say("我们还有好多事情需要准备。");
+        printText("她让大家集合，宣布工作事项。");
+        this.makeDefaultPlan();
+        this.say("接下来大家按照计划，各自做好手头的准备吧！");
+        this.houseKeeperMaid.doPerpare();
+        return OK;
+    }
 
 
 
@@ -178,7 +192,7 @@ export default class MaidHead implements LeaderMaid{
      */
     public openHerEyes(){
         
-        this.housekeeperMaid.openHerEyes();
+        this.houseKeeperMaid.openHerEyes();
 
         this.createArtwork();
         return OK;
@@ -191,7 +205,7 @@ export default class MaidHead implements LeaderMaid{
      */
     public makeScheduleNextDay(schedule:Schedule):Schedule{
         // TODO:现在没有完成，临时用一下
-        schedule.addToTomorrow(projects[1])
+        schedule.addToTomorrow(projects.daily)
         return schedule;
     }
 
@@ -229,7 +243,7 @@ export default class MaidHead implements LeaderMaid{
      */
     private createArtwork(){
         if(Game.cpu.bucket == 10000){
-            let err = Game.cpu.generatePixel();
+            let err = Game.cpu.generatePixel?.();
             if(err == OK){
                 printText("闲暇时间，女仆们会进行艺术创作，今天，又一个崭新的作品诞生啦。");
             }
@@ -279,7 +293,7 @@ export default class MaidHead implements LeaderMaid{
     
     //todo
     private traineeMaidHead:TraineeMaidHead;
-    private housekeeperMaid:HouseKeeperMaid;
+    private houseKeeperMaid:HouseKeeperMaid;
     private praetoriums:Praetorium[];
     private rooms:{[key:string]:Room[]};
     public name = "MaidHead";

@@ -1,3 +1,5 @@
+import { printErr } from "./utils/logtool";
+
 export default function(loop:Function){
     return function(){
         try {
@@ -10,8 +12,7 @@ export default function(loop:Function){
                  * 对某些一次做特殊处理的话能极大的加强代码的健壮度
                  */
                 // TODO
-                const errorMessage = `<br>${_.escape(e.stack)}`;
-                console.log(`<text style="color:#ef9a9a">${errorMessage}</text>`);
+                printErr(e);
             }
             else throw e// 处理不了，直接抛出
         }

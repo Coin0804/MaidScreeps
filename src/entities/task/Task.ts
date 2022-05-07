@@ -1,13 +1,9 @@
+
+
 /**
- * 抽象任务类
- * 所有任务子类的父类
+ * 普通任务
  */
-export abstract class Task{
-
-}
-
-
-export class NormalPraetoriumTask extends Task{
+export class NormalPraetoriumTask implements Task{
     public taskArea:AREAS;
     public taskType:TASKTYPES;
 }

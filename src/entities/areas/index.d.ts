@@ -11,7 +11,7 @@
  * 
  * “房子”又被划分成了若干个区域，包括： // 
  * 书房：负责lab
- * 仓库：负责整个中央管理物流枢纽，最终形成以storage为中心，包括terminal和一至二个link的高效物流系统
+ * 仓库：负责整个中央管理物流枢纽，最终形成以storage为中心，包括terminal和一至二个link的高效物流系统，如果没有storage，那么则会使用container代替
  * 卧室：负责所有spawn，powerspawn和extension以及creep与powercreep的孵化
  * 车库：负责road与container的维护，新建筑的建造，resource，tombstone，ruins和敌人建筑中物资的回收，powercreep的工作处理
  * 厨房：负责本“别墅”内source，mineral，deposit，power的采集与运输，以及factory的工作
@@ -22,17 +22,17 @@
  * 尤其是和仓库区域
  */
 
-
-
-type Areas = {
-    studyroom:any,
-    warehouse:any,
-    bedroom:any,
-    kitchen:any,
-    balcony:any,
+/**
+ * 各个区域的抽象父类，
+ */
+interface Area{
+    leader:LeaderMaid;
+    staffList:Staff[];
+    taskList:Task[];
+    tools:{
+        [name:string]:Tool[]|Tool,
+    }
 }
-
-
 
 
 

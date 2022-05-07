@@ -48,11 +48,11 @@ export default class TraineeMaidHead implements LeaderMaid{
         printText("见习女仆长开始汇报工作");
         this.say(`目前一共有 ${praetoriums.length} 间别墅。`);
         for(let p of praetoriums){
-            this.say(` ${p.house.room.name} 有 ${p.yards.length} 片院子`)
+            this.say(` ${p.house.room} 有 ${p.yards.length} 片院子`)
             if(p.yards.length){
                 let info = "分别是：";
                 for(let y of p.yards){
-                    info.concat(y.room.name);
+                    info.concat(y.room);
                 }
                 this.say(info);
             }
@@ -71,17 +71,21 @@ export default class TraineeMaidHead implements LeaderMaid{
         let praetorium:Praetorium;
         let minDistance = Infinity;
         for(let p of this.praetoriums){// 不必检验preatoriums的长度，因为只在hire中调用，此时是确保有长度的
-            let distance = Game.map.getRoomLinearDistance(yard.room.name,p.house.room.name);
+            let distance = Game.map.getRoomLinearDistance(yard.room,p.house.room);
             if(distance < minDistance){// 优先分配给距离最近的
                 praetorium = p;
                 minDistance = distance;
             }else if(distance == minDistance){// 一样就看控制器等级
-                praetorium = praetorium.house.room.controller.level > p.house.room.controller.level ? praetorium : p;
+                praetorium = praetorium.house.getRoom().controller.level > p.house.getRoom().controller.level ? praetorium : p;
             }
         }
         return praetorium;
     }
     
+    public doPerpare(): ReturnCode {
+        return OK;
+    }
+
     /**
      * 新的一天！
      * 今天，见习女仆长也要加油！

@@ -10,8 +10,9 @@ export function getTime(original = true){
 export class Calendar{
     constructor(){
         this.startDate = Game.time;
+        this.today = 0;
     }
-    private startDate:number;
+    public startDate:number;
     private today:number;
 
     nextDay(){
