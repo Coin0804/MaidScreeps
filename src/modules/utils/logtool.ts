@@ -13,8 +13,8 @@ function totext(s:string,{color = 'white',weight = 'normal',size = '15px'} = {})
     return `<text style="color:${color};font-weight: ${weight};font-size:${size};">${s}</text>`;
 }
 
-export function tolog(s:string){
-    return `<text style="font-size:10px;font-style:italic">${s}</text>`;
+export function tolog(s:(string|number),{color = 'white'} = {}){
+    return `<text style="color:${color};font-size:10px;font-style:italic">${s}</text>`;
 }
 
 
@@ -49,18 +49,22 @@ export function printLine(){
     console.log(`--------------${tolog(getTime())}-------------`);
 }
 
-export function printLog(...logs:string[]){
+export function printLog(...logs:(string|number)[]){
     if(CONFIG.log.enable && CONFIG.log.detail.log.enable){
-        let log = '';
-        logs.map((l) => {log = log.concat(tolog(l))});
-        console.log(log);
+        console.log(logs.map((l) => {return tolog(l)}).join(BR));
     }
 }
 
-export function printLineLog(...logs:string[]){
+export function printLineLog(...logs:(string|number)[]){
     if(CONFIG.log.enable && CONFIG.log.detail.log.enable){
         printLine();
         printLog(...logs);
+    }
+}
+
+export function printDebug(...logs:(string|number)[]){
+    if(CONFIG.log.enable && CONFIG.log.detail.debug.enable){
+        console.log(logs.map((l) => {return tolog(l,{color:"red"})}).join(BR));
     }
 }
 

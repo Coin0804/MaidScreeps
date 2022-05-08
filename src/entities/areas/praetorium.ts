@@ -12,7 +12,7 @@ export class Praetorium{
         // TODO
     }
     
-    public leaders:LeaderMaid[];
+    public leaders:LeaderMaid[] = [];
     public house:House;
     public yards:Yard[];
     public plan:Plan;
@@ -46,8 +46,8 @@ export class House{
         return OK;
     }
 
-    public getRoom():Room{
-        return Game[this.room];
+    public getRoom(){
+        return Game.rooms[this.room];
     }
 
 
@@ -174,4 +174,14 @@ export class Balcony implements Area{
         wall:Tool<STRUCTURE_WALL>[],
         ramparts:Tool<STRUCTURE_RAMPART>[]
     }
+}
+
+/**
+ * 员工列表工具类
+ */
+class StaffList{
+    constructor(staffs:Staff[]){
+        
+    }
+    private dic:{[type:string]:Staff[]}={};
 }

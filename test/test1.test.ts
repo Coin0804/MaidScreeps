@@ -2,6 +2,7 @@
 
 import { BODYS } from "@/entities/maids/staffs/bodys/bodys";
 import { repeat } from "@/modules/utils/arrayUtils";
+import { printLine, printLog } from "@/modules/utils/logtool";
 import { expect, it, test } from "vitest";
 
 test('优雅部件',function(){
@@ -18,7 +19,12 @@ it('递归连接重复',function(){
     console.timeEnd("d")
 });
 
-it('递归链接',function(){
+it('log输出',function(){
+    printLine();
+    printLog("hello");
+});
+
+it.skip('递归链接',function(){
     /*
     Changes include adding `accents` and the `ñ`.
     I also added `min` and `max` as parameters.

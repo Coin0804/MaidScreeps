@@ -19,6 +19,7 @@ export default class YellowMaid implements AreaLeaderMaid{
     }
 
     public doPerpare(): ReturnCode {
+
         return OK;
     }
 

@@ -8,6 +8,9 @@ export const CONFIG = {
             text:{
                 enable:true,
             },
+            debug:{
+                enable:true,
+            }
         }
     }
 }

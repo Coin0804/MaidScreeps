@@ -8,6 +8,11 @@ export class GameMock {
     creeps = {}
     rooms = {}
     spawns = {}
+    cpu = {
+        getUsed:function(){
+            return 0;
+        }
+    }
     time = 1
 }
 
