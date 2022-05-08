@@ -1,5 +1,5 @@
 import { Garage, Praetorium } from "@/entities/areas/praetorium";
-import { printSay } from "@/modules/utils/logtool";
+import { printDebug, printSay } from "@/modules/utils/logtool";
 
 /**
  * 
@@ -15,8 +15,18 @@ export default class ChocolateMaid implements AreaLeaderMaid{
     }
     
     public doPerpare(): ReturnCode {
-        this.area.staffList = [];// TODO:初始化暂时先设为空，不检索任何creep
-        this.area.taskList = [];
+        // TODO:本来应该从记忆中就可以恢复，暂时先使用搜索
+        this.area.staffList = this.praetorium.house.getRoom()
+        .find(FIND_MY_CREEPS,{filter:(c) => c.name.match(`${this.praetorium.house.room}_warehouse`)});
+        printDebug(`${this.name}:${this.area.staffList.length}`);
+        /**
+         * 接下来需要完成必要任务的装填
+         */
+        
+
+
+
+        // this.area.taskList;
         // TODO
         return OK;
     }
