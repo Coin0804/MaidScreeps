@@ -1,12 +1,12 @@
 import { Praetorium } from "@/entities/areas/praetorium";
 import { printEmphasize, printLine, printSay, printText, printWhisper } from "@u/logtool";
-import BlueMaid from "./BlueMaid";
-import ChocolateMaid from "./ChocolateMaid";
-import GreenMaid from "./GreenMaid";
+import BlueMaid from "./areaLeaders/BlueMaid";
+import ChocolateMaid from "./areaLeaders/ChocolateMaid";
+import GreenMaid from "./areaLeaders/GreenMaid";
 import MaidHead from "./MaidHead";
-import PinkMaid from "./PinkMaid";
-import RedMaid from "./RedMaid";
-import YellowMaid from "./YellowMaid";
+import PinkMaid from "./areaLeaders/PinkMaid";
+import RedMaid from "./areaLeaders/RedMaid";
+import YellowMaid from "./areaLeaders/YellowMaid";
 
 
 /**

@@ -1,6 +1,8 @@
-/**
- * 对于这个文件中的类及其作用，你可以在该目录下的index.d.ts找到说明
- */
+import { StaffList } from "@/modules/containers/containers";
+import { AreaLeaderMaid } from "../maids/leaders/areaLeaders/abstract";// 警告：循环引用
+
+
+
 
 /**
  * 别墅类
@@ -79,15 +81,30 @@ export class Yard{
     public room:string;
 }
 
+/**
+ * 各个区域的抽象父类
+ */
+export abstract class AbstractArea implements AreaInterface{
+    constructor(type: AREAS){
+        this.type = type;
+    }
+    type: AREAS;
+    leader: AreaLeaderMaid;
+    staffList: StaffList;
+    taskList: Task[];
+    letterbox: Letter[];
+    tools: { [name: string]: Tool<StructureConstant> | Tool<StructureConstant>[]; };
+    
+}
 
 
 /**
  * 书房类
  */
-export class Studyroom implements Area{
-    leader:LeaderMaid;
-    staffList:Staff[] = [];
-    taskList:Task[] = [];
+export class Studyroom extends AbstractArea{
+    constructor(){
+        super("studyroom");
+    }
     tools:{
         labs:Tool<STRUCTURE_LAB>[],
         reactantLabs:Tool<STRUCTURE_LAB>[],
@@ -99,10 +116,10 @@ export class Studyroom implements Area{
 /**
  * 仓库类
  */
-export class Warehouse implements Area{
-    leader: LeaderMaid;
-    staffList: Staff[] = [];
-    taskList: Task[] = [];
+export class Warehouse extends AbstractArea{
+    constructor(){
+        super("warehouse");
+    }
     tools: {
         all:Tool[],
         storage:Tool<STRUCTURE_STORAGE>,
@@ -115,10 +132,10 @@ export class Warehouse implements Area{
 /**
  * 卧室类
  */
-export class Bedroom implements Area{
-    staffList: Staff[] = [];
-    leader: LeaderMaid;
-    taskList: Task[] = [];
+export class Bedroom extends AbstractArea{
+    constructor(){
+        super("bedroom");
+    }
     tools: {
         all:Tool[],
         spawns:Tool<STRUCTURE_SPAWN>[],
@@ -130,10 +147,10 @@ export class Bedroom implements Area{
 /**
  * 车库类
  */
-export class Garage implements Area{
-    staffList: Staff[] = [];
-    leader: LeaderMaid;
-    taskList: Task[] = [];
+export class Garage extends AbstractArea{
+    constructor(){
+        super("garage");
+    }
     tools: {
         all:Tool[],
         normalRoads:Tool<STRUCTURE_ROAD>[],
@@ -148,10 +165,10 @@ export class Garage implements Area{
 /**
  * 厨房类
  */
-export class Kitchen implements Area{
-    staffList: Staff[] = [];
-    leader: LeaderMaid;
-    taskList: Task[] = [];
+export class Kitchen extends AbstractArea{
+    constructor(){
+        super("kitchen");
+    }
     tools: {
         all:Tool[],
         links:Tool<STRUCTURE_LINK>[],
@@ -162,10 +179,10 @@ export class Kitchen implements Area{
 /**
  * 阳台类
  */
-export class Balcony implements Area{
-    staffList: Staff[] = [];
-    leader: LeaderMaid;
-    taskList: Task[] = [];
+export class Balcony extends AbstractArea{
+    constructor(){
+        super("balcony");
+    }
     tools: {
         all:Tool[],
         towers:Tool<STRUCTURE_TOWER>[],
@@ -174,14 +191,4 @@ export class Balcony implements Area{
         wall:Tool<STRUCTURE_WALL>[],
         ramparts:Tool<STRUCTURE_RAMPART>[]
     }
-}
-
-/**
- * 员工列表工具类
- */
-class StaffList{
-    constructor(staffs:Staff[]){
-        
-    }
-    private dic:{[type:string]:Staff[]}={};
 }

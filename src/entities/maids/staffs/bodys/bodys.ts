@@ -54,6 +54,7 @@ export const BODYS:BodysConstant = {
         }
     },
     battleMaid:{
+        level:[],
         final:{
             superMaid:bodyPartToArray({tough:11,rangedAttack:5,move:10,heal:24})
         }

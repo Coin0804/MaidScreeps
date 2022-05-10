@@ -1,6 +1,7 @@
 import { Praetorium, Studyroom } from "@/entities/areas/praetorium";
 import { Tool } from "@/entities/tool/Tool";
 import { printSoftSay, printText } from "@/modules/utils/logtool";
+import { AreaLeaderMaid } from "./abstract";
 
 /**
  * 谁啊……
@@ -8,13 +9,11 @@ import { printSoftSay, printText } from "@/modules/utils/logtool";
  * 你想做什么就做什么吧……
  * zzz
  */
-export default class BlueMaid implements AreaLeaderMaid{// TODO:负责实验室合成相关事项，目前没有想法，所以应该是没什么事做的
+export default class BlueMaid extends AreaLeaderMaid{// TODO:负责实验室合成相关事项，目前没有想法，所以应该是没什么事做的
     constructor(praetorium:Praetorium){
-        this.praetorium = praetorium;
-        praetorium.leaders.push(this);
-        this.name = `BlueMaid in ${praetorium.house.room}`;
+        super(praetorium);
+        this.name = `BlueMaid_${praetorium.house.room}`;
         this.area = praetorium.house.areas.studyroom;
-        this.area.leader = this;
         this.say("在叫我吗");
     }
 
@@ -39,7 +38,4 @@ export default class BlueMaid implements AreaLeaderMaid{// TODO:负责实验室�
     }
 
     public area: Studyroom;
-    public name:string;
-    private praetorium:Praetorium;
-
 }

@@ -1,5 +1,6 @@
 import { Praetorium, Warehouse } from "@/entities/areas/praetorium";
 import { printSay } from "@/modules/utils/logtool";
+import { AreaLeaderMaid } from "./abstract";
 
 /**
  * 呜啊！
@@ -8,23 +9,16 @@ import { printSay } from "@/modules/utils/logtool";
  * 呜，当然不可以啦！
  * 诶等————
  */
-export default class YellowMaid implements AreaLeaderMaid{
+export default class YellowMaid extends AreaLeaderMaid{
     constructor(praetorium:Praetorium){
-        this.praetorium = praetorium;
-        praetorium.leaders.push(this);
-        this.name = `BlueMaid in ${praetorium.house.room}`;
+        super(praetorium);
+        this.name = `YellowMaid_${praetorium.house.room}`;
         this.area = praetorium.house.areas.warehouse;
-        this.area.leader = this;
-        this.hired();
     }
 
     public doPerpare(): ReturnCode {
 
         return OK;
-    }
-
-    private hired(){
-        
     }
 
     public openHerEyes(): ReturnCode {
@@ -35,8 +29,5 @@ export default class YellowMaid implements AreaLeaderMaid{
         printSay(this.name,saying,"glod");
     }
 
-
-    public name: string;
-    private praetorium:Praetorium;
     public area:Warehouse;
 }

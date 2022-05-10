@@ -1,17 +1,18 @@
 import { Kitchen, Praetorium } from "@/entities/areas/praetorium";
 import { printSay } from "@/modules/utils/logtool";
+import { AreaLeaderMaid } from "./abstract";
 
 /**
  * 
  * 
  */
-export default class GreenMaid implements AreaLeaderMaid{
+export default class GreenMaid extends AreaLeaderMaid{
     constructor(praetorium:Praetorium){
-        this.praetorium = praetorium;
-        praetorium.leaders.push(this);
-        this.name = `BlueMaid in ${this.praetorium.house.room}`;
-        praetorium.house.areas.kitchen.leader = this;
+        super(praetorium);
+        this.name = `GreenMaid_${praetorium.house.room}`;
+        this.area = praetorium.house.areas.kitchen;
     }
+
 
     public doPerpare(): ReturnCode {
         // TODO
@@ -27,6 +28,4 @@ export default class GreenMaid implements AreaLeaderMaid{
     }
 
     public area: Kitchen;
-    public name: string;
-    private praetorium:Praetorium;
 }

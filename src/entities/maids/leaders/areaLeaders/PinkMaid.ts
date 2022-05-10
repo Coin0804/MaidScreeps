@@ -1,16 +1,16 @@
 import { Bedroom, Praetorium } from "@/entities/areas/praetorium";
 import { printSay } from "@/modules/utils/logtool";
+import { AreaLeaderMaid } from "./abstract";
 
 /**
  * 主人这么想要看光光吗？
  * 那，看吧~❤
  */
-export default class PinkMaid implements AreaLeaderMaid{
+export default class PinkMaid extends AreaLeaderMaid{
     constructor(praetorium:Praetorium){
-        this.praetorium = praetorium;
-        praetorium.leaders.push(this);
-        this.name = `BlueMaid in ${this.praetorium.house.room}`;
-        praetorium.house.areas.bedroom.leader = this;
+        super(praetorium);
+        this.name = `PinkMaid_${praetorium.house.room}`;
+        this.area = praetorium.house.areas.bedroom;
     }
 
     public doPerpare(): ReturnCode {
@@ -27,6 +27,4 @@ export default class PinkMaid implements AreaLeaderMaid{
     }
 
     public area: Bedroom;
-    public name: string;
-    private praetorium:Praetorium;
 }

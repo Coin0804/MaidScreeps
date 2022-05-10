@@ -24,7 +24,7 @@ it('log输出',function(){
     printLog("hello");
 });
 
-it.skip('递归链接',function(){
+it('递归链接',function(){
     /*
     Changes include adding `accents` and the `ñ`.
     I also added `min` and `max` as parameters.

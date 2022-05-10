@@ -1,18 +1,16 @@
 /**
  * 各个区域的抽象接口
  */
-interface Area{
-    leader:LeaderMaid;
-    staffList:Staff[];
+interface AreaInterface{
+    type:AREAS
+    leader:AreaLeaderMaid;
+    staffList:ObjectList<Staff>;
     taskList:Task[];
+    letterbox:Letter[];
     tools:{
         [name:string]:Tool[]|Tool,
     }
 }
 
-
-
-
-
-type AREAS = "studyroom"|"warehouse"|"bedroom"|"kitchen"|"balcony";
+type AREAS = "studyroom"|"warehouse"|"bedroom"|"kitchen"|"balcony"|"garage";
 type TASKTYPES = "building";
