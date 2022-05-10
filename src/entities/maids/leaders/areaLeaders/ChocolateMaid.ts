@@ -1,4 +1,4 @@
-import { Garage, Praetorium} from "@/entities/areas/praetorium";
+import { Garage, Praetorium} from "@/entities/areas/Praetorium";
 import { StaffList } from "@/modules/containers/containers";
 import { printDebug, printSay } from "@/modules/utils/logtool";
 import WorkMaid from "../../staffs/workmaid";

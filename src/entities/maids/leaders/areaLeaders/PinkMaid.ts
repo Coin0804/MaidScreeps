@@ -1,4 +1,4 @@
-import { Bedroom, Praetorium } from "@/entities/areas/praetorium";
+import { Bedroom, Praetorium } from "@/entities/areas/Praetorium";
 import { printSay } from "@/modules/utils/logtool";
 import { AreaLeaderMaid } from "./abstract";
 

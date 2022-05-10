@@ -1,4 +1,4 @@
-import { Praetorium, Yard } from "@/entities/areas/praetorium";
+import { Praetorium, Yard } from "@/entities/areas/Praetorium";
 import { printEmphasize, printLine, printLog, printSay, printText, printWhisper } from "@/modules/utils/logtool";
 
 /**

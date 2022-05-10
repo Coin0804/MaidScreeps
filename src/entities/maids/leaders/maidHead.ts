@@ -1,5 +1,5 @@
 import { ERR_NO_ROOM } from "@/constants";
-import { Praetorium } from "@/entities/areas/praetorium";
+import { Praetorium } from "@/entities/areas/Praetorium";
 import { Plans } from "@/entities/plan/plans";
 import { projects } from "@/entities/schedule/projects";
 import Schedule from "@/entities/schedule/Schedule";

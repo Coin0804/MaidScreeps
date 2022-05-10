@@ -1,4 +1,4 @@
-import { Praetorium, Studyroom } from "@/entities/areas/praetorium";
+import { Praetorium, Studyroom } from "@/entities/areas/Praetorium";
 import { Tool } from "@/entities/tool/Tool";
 import { printSoftSay, printText } from "@/modules/utils/logtool";
 import { AreaLeaderMaid } from "./abstract";

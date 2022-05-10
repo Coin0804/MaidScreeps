@@ -1,4 +1,4 @@
-import { AbstractArea, Praetorium } from "@/entities/areas/praetorium";// 警告：循环引用
+import { AbstractArea, Praetorium } from "@/entities/areas/Praetorium";// 警告：循环引用
 /**
  * 抽象的区域领导女仆
  * 部分的方法有重用

@@ -1,4 +1,4 @@
-import { Praetorium } from "@/entities/areas/praetorium";
+import { Praetorium } from "@/entities/areas/Praetorium";
 import { printEmphasize, printLine, printSay, printText, printWhisper } from "@u/logtool";
 import BlueMaid from "./areaLeaders/BlueMaid";
 import ChocolateMaid from "./areaLeaders/ChocolateMaid";
