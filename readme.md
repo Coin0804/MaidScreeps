@@ -32,11 +32,11 @@
 
 - ### 主要框架
   - 日程
-    - [ ] 零号日程
+    - [x] 零号日程
     - 项目
-      - [ ] 零号项目
-  - [*女仆*](./src/entities/maids/index.d.ts)
-    - 领导
+      - [x] 零号项目
+  - 女仆
+    - [领导](./src/entities/maids/leaders/readme.md)
       - 女仆长
       - 见习女仆长
       - 女仆管家
@@ -47,7 +47,7 @@
       - 小红
       - 小棕
     - 员工
-  - [*别墅*](./src/entities/areas/index.d.ts)
+  - [别墅](./src/entities/areas/readme.md)
     - 房子
       - 书房
       - 仓库
@@ -60,7 +60,7 @@
       - 外矿
   - 计划
     - [ ] 计划定义
-    - [ ] 默认计划
+    - [ ] [默认计划](./src/entities/plan/别墅默认计划.md)
     - 任务
       - 常规
       - 额外
@@ -76,3 +76,6 @@
     - [x] ts基本用法
     - [x] jest单元测试（已弃用）
   - [x] [markdown语法](https://www.runoob.com/markdown/md-tutorial.html)
+  - 寻路算法
+    - [x] [A*算法](https://blog.csdn.net/wzqnn/article/details/78434750)
+    - [ ] [jps算法](https://www.cnblogs.com/KillerAery/archive/2020/06/17/12242445.html)

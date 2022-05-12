@@ -1,5 +1,6 @@
 import { StaffList } from "@/modules/containers/containers";
-import { AreaLeaderMaid } from "../maids/leaders/areaLeaders/abstract";// 警告：循环引用
+import { Letter } from "../letter/Letter";
+import { AreaLeaderMaid } from "../maids/leaders/areaLeaders/abstract";
 
 
 
@@ -84,7 +85,7 @@ export class Yard{
 /**
  * 各个区域的抽象父类
  */
-export abstract class AbstractArea implements AreaInterface{
+export abstract class AbstractArea{
     constructor(type: AREAS){
         this.type = type;
     }
@@ -92,7 +93,7 @@ export abstract class AbstractArea implements AreaInterface{
     leader: AreaLeaderMaid;
     staffList: StaffList;
     taskList: Task[];
-    letterbox: Letter[];
+    letterbox: Letter<LetterTypes>[] = [];
     tools: { [name: string]: Tool<StructureConstant> | Tool<StructureConstant>[]; };
     
 }

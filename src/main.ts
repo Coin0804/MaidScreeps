@@ -10,6 +10,7 @@ import { Calendar } from "./modules/utils/time";
 // 极小初始化
 const calender = new Calendar();
 global.calender = calender;// 全局日历
+global.projects = projects;
 let schedule = new Schedule(1,projects.hire);// 初始化零号日程
 /* 主循环开始 */
 export const loop = ErrorHandler(function(){

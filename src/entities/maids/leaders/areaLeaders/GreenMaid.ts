@@ -11,6 +11,7 @@ export default class GreenMaid extends AreaLeaderMaid{
         super(praetorium);
         this.name = `GreenMaid_${praetorium.house.room}`;
         this.area = praetorium.house.areas.kitchen;
+        this.area.leader = this;
     }
 
 
@@ -23,6 +24,10 @@ export default class GreenMaid extends AreaLeaderMaid{
         return OK;
     }
 
+    public readLetters(): ReturnCode {
+        return OK;
+    }
+    
     public say(saying: string): void {
         printSay(this.name,saying,"lightgreen");
     }

@@ -1,5 +1,17 @@
+type TASKTYPES = "building"|"birth";
+
+
 interface Plan{
-    taskpool:TaskPool;
+    staff:{
+        [area in AREAS] ?:{
+            unconditional:{
+                [type in AllWorkMaid] ?:{
+                    number:number,
+                    priority:number
+                }
+            }
+        }
+    },
 }
 
 /**
@@ -7,7 +19,7 @@ interface Plan{
  * 所有任务子类的父类
  */
  interface Task{
-
+    taskType:TASKTYPES;
 }
 
 interface TaskPool{

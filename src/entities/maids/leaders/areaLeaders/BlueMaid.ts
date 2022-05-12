@@ -14,6 +14,7 @@ export default class BlueMaid extends AreaLeaderMaid{// TODO:负责实验室合�
         super(praetorium);
         this.name = `BlueMaid_${praetorium.house.room}`;
         this.area = praetorium.house.areas.studyroom;
+        this.area.leader = this;
         this.say("在叫我吗");
     }
 
@@ -33,6 +34,10 @@ export default class BlueMaid extends AreaLeaderMaid{// TODO:负责实验室合�
         return OK;
     }
     
+    public readLetters(): ReturnCode {
+        return OK;
+    }
+
     public say(saying: string): void {
         printSoftSay(this.name,saying,"lightblue");
     }

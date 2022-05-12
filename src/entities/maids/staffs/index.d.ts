@@ -3,9 +3,11 @@ type BATTLEMAID = "battleMaid";
 type UNIVERSE = "universe";
 type FINAL = "final";
 
-type BALENCED = "balanced";
+type AllWorkMaid = "balanced";
+type AllBattleMaid = "supermaid";
+type MaidType = AllBattleMaid|AllWorkMaid;
 
-type AllWorkMaid = BALENCED;
+
 
 interface Staff{
     name :string

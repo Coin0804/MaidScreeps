@@ -1,7 +1,6 @@
 import { ERR_NO_ROOM } from "@/constants";
 import { Praetorium } from "@/entities/areas/Praetorium";
 import { Plans } from "@/entities/plan/plans";
-import { projects } from "@/entities/schedule/projects";
 import Schedule from "@/entities/schedule/Schedule";
 import { myorderof } from "@/modules/utils/market";
 import { printLine, printSay, printText } from "@u/logtool";
@@ -205,7 +204,7 @@ export default class MaidHead implements LeaderMaid{
      */
     public makeScheduleNextDay(schedule:Schedule):Schedule{
         // TODO:现在没有完成，临时用一下
-        schedule.addToTomorrow(projects.daily)
+        schedule.addToTomorrow(global.projects.daily)
         return schedule;
     }
 

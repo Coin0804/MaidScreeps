@@ -14,6 +14,7 @@ export default class YellowMaid extends AreaLeaderMaid{
         super(praetorium);
         this.name = `YellowMaid_${praetorium.house.room}`;
         this.area = praetorium.house.areas.warehouse;
+        this.area.leader = this;
     }
 
     public doPerpare(): ReturnCode {
@@ -25,6 +26,10 @@ export default class YellowMaid extends AreaLeaderMaid{
         return OK;
     }
 
+    public readLetters(): ReturnCode {
+        return OK;
+    }
+    
     public say(saying: string): void {
         printSay(this.name,saying,"glod");
     }

@@ -1,5 +1,3 @@
-import { WORKMAID } from "@/constants";
-
 export default class WorkMaid implements Staff{
     constructor(creep:Creep){
         this.id = creep.id;
@@ -7,7 +5,7 @@ export default class WorkMaid implements Staff{
     }
     name: string;
     id: Id<Creep>;
-    team:WORKMAID = WORKMAID;
+    team:WORKMAID = "workMaid";
     group:UNIVERSE;
     level: number;
     type: string;

@@ -5,7 +5,16 @@ import { defaultTaskPool } from "./taskpool";
  */
 export const Plans:{[name:string]:Plan} = {
     default:{
-        taskpool:defaultTaskPool,
+        staff:{
+            garage:{
+                unconditional:{
+                    balanced:{
+                        number:1,
+                        priority:10
+                    }
+                }
+            }
+        }
     },
 }
 
