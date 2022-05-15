@@ -1,4 +1,4 @@
-import { StaffList } from "@/modules/containers/containers";
+import { StaffList, TaskList } from "@/modules/containers/containers";
 import { Letter } from "../letter/Letter";
 import { AreaLeaderMaid } from "../maids/leaders/areaLeaders/abstract";
 
@@ -92,8 +92,8 @@ export abstract class AbstractArea{
     type: AREAS;
     leader: AreaLeaderMaid;
     staffList: StaffList;
-    taskList: Task[];
-    letterbox: Letter<LetterTypes>[] = [];
+    taskList: TaskList;
+    letterbox: Letter[] = [];
     tools: { [name: string]: Tool<StructureConstant> | Tool<StructureConstant>[]; };
     
 }

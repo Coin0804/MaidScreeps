@@ -20,6 +20,7 @@ interface Plan{
  */
  interface Task{
     taskType:TASKTYPES;
+    priority:number;
 }
 
 interface TaskPool{

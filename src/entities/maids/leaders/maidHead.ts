@@ -189,7 +189,7 @@ export default class MaidHead implements LeaderMaid{
      * 每天早晨，女仆长都会从梦中醒来。
      * 迎接新的一天，新的工作。
      */
-    public openHerEyes(){
+    public openHerEyes():ReturnCode{
         
         this.houseKeeperMaid.openHerEyes();
 
@@ -293,7 +293,7 @@ export default class MaidHead implements LeaderMaid{
     //todo
     private traineeMaidHead:TraineeMaidHead;
     private houseKeeperMaid:HouseKeeperMaid;
-    private praetoriums:Praetorium[];
+    public praetoriums:Praetorium[];
     private rooms:{[key:string]:Room[]};
     public name = "MaidHead";
 }

@@ -1,3 +1,3 @@
 interface ObjectList<T>{
-    getAll():T[];
+    all:T[];
 }

@@ -53,7 +53,7 @@ export const loop = ErrorHandler(function(){
                         schedule.addToToday(projects[item.project.nextProject]);
                     }
                 }else{
-                    printLog(`发生问题，返回代码${err}`);
+                    printLog(`项目 ${i+1} 发生问题，返回代码${err}`);
                 } 
                 printLog(`项目 ${i+1} 执行结束`);
             }

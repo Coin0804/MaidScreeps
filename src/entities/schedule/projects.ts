@@ -1,4 +1,5 @@
-import { printEmphasize } from "@/modules/utils/logtool";
+import { ERR_UNKNOW } from "@/constants";
+import { printEmphasize, printErr, printLog } from "@/modules/utils/logtool";
 import MaidHead from "../maids/leaders/MaidHead";
 
 
@@ -20,11 +21,22 @@ export const projects:{[name:string]:Project} = {
     daily:{
         todo:function(){
             // TODO：回收无用的记忆，什么样的记忆是无用的？
-            global.maidHead.openHerEyes();//进行日常工作
+            let err = global.maidHead.openHerEyes();//进行日常工作
+            for(let p of global.maidHead.praetoriums){
+                for(let m of p.leaders){
+                    try{
+                        err = m.openHerEyes();
+                    }catch(e){
+                        printErr(e);
+                        err = ERR_UNKNOW;
+                    }
+                    if(err != OK) printLog(`${m.name}:工作发生问题，返回代码${err}`);
+                }
+            }
             return OK;
         },
         nextProject:undefined,
-        timeneed:0
+        timeneed:10
     },
     prepare:{
         todo:function(){
@@ -33,7 +45,7 @@ export const projects:{[name:string]:Project} = {
             global.maidHead.doPerpare();
             return OK;
         },
-        nextProject:undefined,
-        timeneed:0
+        nextProject:"daily",
+        timeneed:10
     }
 };

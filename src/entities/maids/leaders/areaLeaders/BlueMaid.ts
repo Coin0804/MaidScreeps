@@ -20,8 +20,8 @@ export default class BlueMaid extends AreaLeaderMaid{// TODO:负责实验室合�
 
     public doPerpare(): ReturnCode {
         printText("小蓝在摸鱼");
-        let labs:StructureLab[] = this.praetorium.house.getRoom()
-        .find(FIND_STRUCTURES,{filter:(s) => s.structureType == STRUCTURE_LAB});
+        const labs:StructureLab[] = this.praetorium.house.getRoom()
+        .find(FIND_MY_STRUCTURES,{filter:(s) => s.structureType == STRUCTURE_LAB});
         this.area.tools = {
             labs:labs.map((lab) => {return (new Tool(lab))}),
             reactantLabs:[],

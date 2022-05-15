@@ -28,12 +28,12 @@ export abstract class AreaLeaderMaid implements LeaderMaid{
             return memory?.workRoom == this.praetorium.house.room 
             && memory?.workArea == this.area.type
         }}).map((c) => {return new WorkMaid(c)}));
-        printDebug(`${this.name}:${this.area.staffList.getAll().length}`);
+        printDebug(`${this.name}:${this.area.staffList.all.length} staffs found.`);
 
     }
 
     abstract readLetters():ReturnCode;
-    sendLetter(target:AreaLeaderMaid,letter:Letter<LetterTypes>):ReturnCode{
+    sendLetter(target:AreaLeaderMaid,letter:Letter):ReturnCode{
         letter.from = this;
         target.area.letterbox.push(letter);
         return OK;

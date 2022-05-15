@@ -1,6 +1,6 @@
 import { Garage, Praetorium} from "@/entities/areas/Praetorium";
 import { TaskLetter } from "@/entities/letter/Letter";
-import { printSay } from "@/modules/utils/logtool";
+import { printDebug, printSay } from "@/modules/utils/logtool";
 import { AreaLeaderMaid } from "./abstract";
 
 /**
@@ -20,10 +20,16 @@ export default class ChocolateMaid extends AreaLeaderMaid{
         // TODO:本来应该从记忆中就可以恢复，暂时先使用搜索
         this.findStaffs();
         const unconditionalStaffs = this.praetorium.plan.staff.garage.unconditional;
-        const staffInNeed = unconditionalStaffs.balanced.number - this.area.staffList.getStaffByType("balanced").length;
-        if(staffInNeed > 0){
-            this.sendLetter(this.praetorium.house.areas.bedroom.leader,new TaskLetter("birth",{maidType:"balanced",number:staffInNeed}));
+        for(let i in unconditionalStaffs){
+            const type = i as AllWorkMaid;
+            const staffInNeed = unconditionalStaffs[type].number-this.area.staffList.getStaffByType(type).length;
+            if(staffInNeed > 0){
+                const letter = new TaskLetter("birth",unconditionalStaffs[type].priority,{maidType:"balanced",number:staffInNeed});
+                printDebug(`${this.name} send birth letter ${JSON.stringify(letter)}`);
+                this.sendLetter(this.praetorium.house.areas.bedroom.leader,letter);
+            }
         }
+        
         /**
          * 接下来需要完成必要任务的装填
          */
