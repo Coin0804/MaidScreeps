@@ -1,6 +1,8 @@
 import { StaffList, TaskList } from "@/modules/containers/containers";
 import { Letter } from "../letter/Letter";
 import { AreaLeaderMaid } from "../maids/leaders/areaLeaders/abstract";
+import { Task } from "../plan/Task";
+import { Tool } from "../tool/Tool";
 
 
 
@@ -12,9 +14,11 @@ export class Praetorium{
     constructor(room:Room){
         this.house = new House(room);
         this.yards = [];
+        this.level = room.controller.level as ControllerLevels;
         // TODO
     }
-    
+
+    public level:ControllerLevels;
     public leaders:LeaderMaid[] = [];
     public house:House;
     public yards:Yard[];
@@ -94,7 +98,7 @@ export abstract class AbstractArea{
     staffList: StaffList;
     taskList: TaskList;
     letterbox: Letter[] = [];
-    tools: { [name: string]: Tool<StructureConstant> | Tool<StructureConstant>[]; };
+    tools: { [name: string]: Tool<AnyStructure> | Tool<AnyStructure>[]; };
     
 }
 
@@ -107,9 +111,9 @@ export class Studyroom extends AbstractArea{
         super("studyroom");
     }
     tools:{
-        labs:Tool<STRUCTURE_LAB>[],
-        reactantLabs:Tool<STRUCTURE_LAB>[],
-        productLabs:Tool<STRUCTURE_LAB>[]
+        labs:Tool<StructureLab>[],
+        reactantLabs:Tool<StructureLab>[],
+        productLabs:Tool<StructureLab>[]
     };
 }
 
@@ -123,10 +127,10 @@ export class Warehouse extends AbstractArea{
     }
     tools: {
         all:Tool[],
-        storage:Tool<STRUCTURE_STORAGE>,
-        terminal:Tool<STRUCTURE_TERMINAL>,
-        links:Tool<STRUCTURE_LINK>[],
-        containers:Tool<STRUCTURE_CONTAINER>[]
+        storage:Tool<StructureStorage>,
+        terminal:Tool<StructureTerminal>,
+        links:Tool<StructureLink>[],
+        containers:Tool<StructureContainer>[]
     };
 }
 
@@ -139,9 +143,9 @@ export class Bedroom extends AbstractArea{
     }
     tools: {
         all:Tool[],
-        spawns:Tool<STRUCTURE_SPAWN>[],
-        powerSpawn:Tool<STRUCTURE_POWER_SPAWN>,
-        extensions:Tool<STRUCTURE_EXTENSION>[],
+        spawns:Tool<StructureSpawn>[],
+        powerSpawn:Tool<StructurePowerSpawn>,
+        extensions:Tool<StructureExtension>[],
     };
 }
 
@@ -154,9 +158,9 @@ export class Garage extends AbstractArea{
     }
     tools: {
         all:Tool[],
-        normalRoads:Tool<STRUCTURE_ROAD>[],
-        swampRoads:Tool<STRUCTURE_ROAD>[],
-        containers:Tool<STRUCTURE_CONTAINER>[]
+        normalRoads:Tool<StructureRoad>[],
+        swampRoads:Tool<StructureRoad>[],
+        containers:Tool<StructureContainer>[]
     };
     constructionSites:ConstructionSite[];
     powerMaid:PowerCreep;
@@ -172,8 +176,8 @@ export class Kitchen extends AbstractArea{
     }
     tools: {
         all:Tool[],
-        links:Tool<STRUCTURE_LINK>[],
-        factory:Tool<STRUCTURE_FACTORY>
+        links:Tool<StructureLink>[],
+        factory:Tool<StructureFactory>
     };
 }
 
@@ -186,10 +190,10 @@ export class Balcony extends AbstractArea{
     }
     tools: {
         all:Tool[],
-        towers:Tool<STRUCTURE_TOWER>[],
-        observer:Tool<STRUCTURE_OBSERVER>,
-        nuker:Tool<STRUCTURE_NUKER>,
-        wall:Tool<STRUCTURE_WALL>[],
-        ramparts:Tool<STRUCTURE_RAMPART>[]
+        towers:Tool<StructureTower>[],
+        observer:Tool<StructureObserver>,
+        nuker:Tool<StructureNuker>,
+        wall:Tool<StructureWall>[],
+        ramparts:Tool<StructureRampart>[]
     }
 }

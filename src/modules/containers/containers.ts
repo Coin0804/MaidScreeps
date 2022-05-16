@@ -1,3 +1,5 @@
+import { Task } from "@/entities/plan/Task";
+
 abstract class AbstractObjectList<T> implements ObjectList<T>{
     constructor(all:T[]){
         this.all = all;
@@ -34,25 +36,28 @@ export class TaskList extends AbstractObjectList<Task>{
     }
 
     public add(task: Task) {
-        this.insertByPriority(this.all,task);
-        this.insertByPriority(this.dic[task.taskType],task);
+        task.state = "inLine";
+        this.insertTask(this.all,task);
+        this.insertTask(this.dic[task.taskType],task);
     }
 
     private sortByPriority(list:Task[]){
         return list.sort((a,b)=>b.priority-a.priority);
     }
 
-    private sortAll(){
+    public sortAll(){
         this.all = this.sortByPriority(this.all);
         for(let i in this.dic){
             this.dic[i] = this.sortByPriority(this.dic[i]);
         }
     }
 
-    private insertByPriority(list:Task[],task:Task){
-        for(let i=0;i<list.length;i++){
-            if(list[i].priority < task.priority){
-                return list.splice(i,0,task);
+    private insertTask(list:Task[],task:Task,byPriority = false){
+        if(byPriority){
+            for(let i=0;i<list.length;i++){
+                if(list[i].priority < task.priority){
+                    return list.splice(i,0,task);
+                }
             }
         }
         return list.push(task);

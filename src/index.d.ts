@@ -5,7 +5,7 @@ type ERR_IN_PRIVATESERVER = -101;
 
 
 
-type ReturnCode = ERR_NO_ROOM|CreepActionReturnCode|ERR_UNKNOW|ERR_IN_PRIVATESERVER|ERR_INVALID_PROJECT;
+type ReturnCode = ERR_NO_ROOM|ScreepsReturnCode|ERR_UNKNOW|ERR_IN_PRIVATESERVER|ERR_INVALID_PROJECT;
 
 type OptionableStructures = STRUCTURE_LINK
     |STRUCTURE_TERMINAL|STRUCTURE_FACTORY|STRUCTURE_LAB
@@ -13,7 +13,7 @@ type OptionableStructures = STRUCTURE_LINK
     |STRUCTURE_OBSERVER|STRUCTURE_POWER_SPAWN
 
 
-
+type ControllerLevels = 0|1|2|3|4|5|6|7|8;
 
 interface Memory{
     /**

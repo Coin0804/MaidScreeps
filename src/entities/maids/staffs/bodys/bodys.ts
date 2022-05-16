@@ -41,12 +41,18 @@ function moduleToBody(module:BodyPartConstant[],time:number){
     return repeat(module,time) as BodyPartConstant[];
 }
 
+const basicWork = codeToBody("wcm");
+
 /**
  * 
  */
 export const BODYS:BodysConstant = {
     workMaid:{
-        level:[],
+        level:{
+            1:{
+                balanced:basicWork,
+            },
+        },
         universe:{
             propertyPurchasesMaid:bodyPartToArray({move:1,claim:1}),
             longWayPropertyPurchasesMaid:bodyPartToArray({move:1,claim:5}),
@@ -54,7 +60,7 @@ export const BODYS:BodysConstant = {
         }
     },
     battleMaid:{
-        level:[],
+        level:{},
         final:{
             superMaid:bodyPartToArray({tough:11,rangedAttack:5,move:10,heal:24})
         }

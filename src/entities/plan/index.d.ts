@@ -1,4 +1,5 @@
 type TASKTYPES = "building"|"birth";
+type TaskStates = "inLine"|"inProgress";
 
 
 interface Plan{
@@ -14,21 +15,12 @@ interface Plan{
     },
 }
 
-/**
- * 抽象任务类
- * 所有任务子类的父类
- */
- interface Task{
-    taskType:TASKTYPES;
-    priority:number;
-}
+// interface TaskPool{
+//     normal:{[taskname:string]:(...args:any) => any},
+//     additional:{
 
-interface TaskPool{
-    normal:{[taskname:string]:(...args:any) => Task},
-    additional:{
-
-    },
-    emergency:{
+//     },
+//     emergency:{
         
-    }
-}
+//     }
+// }

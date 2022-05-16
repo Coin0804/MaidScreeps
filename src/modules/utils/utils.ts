@@ -17,6 +17,6 @@ export function getUsername(){
     return undefined;
 }
 
-export function dicToTools<T extends StructureConstant>(type:T,dic:{[key:string]:Structure[]}){
-    return dic[type]?.map((s)=>{return new Tool<T>(s as Structure<T>)})
+export function dicToTools<S extends AnyStructure>(type:StructureConstant,dic:{[key:string]:Structure[]}){
+    return dic[type]?.map((s)=>{return new Tool<S>(s as S)});
 }

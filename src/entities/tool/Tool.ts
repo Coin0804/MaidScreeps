@@ -1,13 +1,13 @@
-export class Tool<T extends StructureConstant = StructureConstant>{
-    constructor(structure:Structure<T>){
-        this.id = structure.id;
+export class Tool<T extends AnyStructure = AnyStructure>{
+    constructor(structure:T){
+        this.id = structure.id as Id<T>;
     }
 
     public get(){
         return Game.getObjectById(this.id);
     }
     
-    private id:Id<Structure<T>>;
+    private id:Id<T>;
 
 }
 

@@ -13,11 +13,11 @@ type BodyPartCode = "a"|"r"|"t"|"m"|"c"|"C"|"w";
 
 type BodysConstant = {
     workMaid:{
-        level :{[maidtype:string]:BodyPartConstant[]}[],
+        level :{[l in ControllerLevels]?:{[maidtype in AllWorkMaid] ?:BodyPartConstant[]}},
         universe :{[maidtype:string]:BodyPartConstant[]}
     }
     battleMaid:{
-        level ?:{[maidtype:string]:BodyPartConstant[]}[],
+        level ?:{[l in ControllerLevels]?:{[maidtype in AllBattleMaid] ?:BodyPartConstant[]}},
         final :{[maidtype:string]:BodyPartConstant[]}
     }
 };

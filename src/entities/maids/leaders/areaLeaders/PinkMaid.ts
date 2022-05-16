@@ -5,6 +5,7 @@ import { Tool } from "@/entities/tool/Tool";
 import { TaskList } from "@/modules/containers/containers";
 import { printDebug, printSay } from "@/modules/utils/logtool";
 import { dicToTools } from "@/modules/utils/utils";
+import { BODYS } from "../../staffs/bodys/bodys";
 import { AreaLeaderMaid } from "./abstract";
 
 /**
@@ -28,9 +29,9 @@ export default class PinkMaid extends AreaLeaderMaid{
             || s.structureType == STRUCTURE_POWER_SPAWN
         }});
         const dic = _.groupBy(allBedRoomStructures,(s) => {return s.structureType});
-        const extensionTools = dicToTools(STRUCTURE_EXTENSION,dic);
-        const spawnTools = dicToTools(STRUCTURE_SPAWN,dic);
-        const powerSpawnTools = dicToTools(STRUCTURE_POWER_SPAWN,dic);
+        const extensionTools = dicToTools<StructureExtension>(STRUCTURE_EXTENSION,dic);
+        const spawnTools = dicToTools<StructureSpawn>(STRUCTURE_SPAWN,dic);
+        const powerSpawnTools = dicToTools<StructurePowerSpawn>(STRUCTURE_POWER_SPAWN,dic);
         this.area.tools = {
             all:[].concat(extensionTools,spawnTools,powerSpawnTools),
             spawns:spawnTools,
@@ -75,8 +76,26 @@ export default class PinkMaid extends AreaLeaderMaid{
     }
 
     private doBirthTask():ReturnCode{
-        
-        for(let i in this.area.taskList.getTasksByType("birth")){
+        if(!this.area.tools.spawns?.length) return ERR_NOT_FOUND;
+        const spawns = this.area.tools.spawns.map((t) => {return t.get()});
+        const spawning = spawns.map((s)=>{return !!s.spawning});
+        this.area.taskList.sortAll();
+        const birthTasks = this.area.taskList.getTasksByType("birth") as BirthWorkMaidTask[];
+        for(let t in birthTasks){
+            if(spawning.every(s=>!!s)) break;
+            const birthTask = birthTasks[t];
+            if(birthTask.state == "inLine"){
+                for(let i in spawning){
+                    if(!spawning[i] && birthTask.canSpawnIn(spawns[i].name)){
+                        const body = BODYS.workMaid.level[this.praetorium.level][birthTask.maidType];
+                        const name = `${this.praetorium.house.room}_${birthTask.workArea}`// TODO:还没写完
+                        let err = spawns[i].spawnCreep(body,name);
+                        birthTask.state = "inProgress";
+                    }
+                }
+            }else if(birthTask.state == "inProgress"){
+
+            }
 
         }
         return OK;
