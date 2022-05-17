@@ -1,3 +1,4 @@
+import { Tool } from "../tool/Tool";
 
 
 /**
@@ -15,17 +16,17 @@ export class Task{
 }
 
 export class BirthWorkMaidTask extends Task{
-    constructor(workArea:AREAS,maidType:AllWorkMaid,priority:number){
+    constructor(priority:number,detail:birthTaskDetail){
         super("birth",priority);
-        this.workArea = workArea;
-        this.maidType = maidType;
+        this.detail = detail;
     }
 
     public canSpawnIn(spawnName:string){
         return !this.birthSpawns || this.birthSpawns.includes(spawnName);
     }
-    public birthSpawns:string[];
-    public workArea:AREAS;
-    public maidType:AllWorkMaid;
 
+    public birthSpawns:string[];
+    public detail:birthTaskDetail;
+
+    public birthTool:Tool<StructureSpawn>;
 }

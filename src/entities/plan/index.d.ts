@@ -1,6 +1,14 @@
 type TASKTYPES = "building"|"birth";
 type TaskStates = "inLine"|"inProgress";
 
+type birthTaskDetail = {
+    workArea:AREAS,
+    maidType:AllWorkMaid,
+    dirctions?:DirectionConstant[],
+    body:BodyPartConstant[],
+    name:string
+}
+
 
 interface Plan{
     staff:{

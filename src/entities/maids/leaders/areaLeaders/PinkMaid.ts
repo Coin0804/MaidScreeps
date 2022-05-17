@@ -1,7 +1,6 @@
 import { Bedroom, Praetorium } from "@/entities/areas/Praetorium";
 import { TaskLetter } from "@/entities/letter/Letter";
 import { BirthWorkMaidTask } from "@/entities/plan/Task";
-import { Tool } from "@/entities/tool/Tool";
 import { TaskList } from "@/modules/containers/containers";
 import { printDebug, printSay } from "@/modules/utils/logtool";
 import { dicToTools } from "@/modules/utils/utils";
@@ -38,6 +37,17 @@ export default class PinkMaid extends AreaLeaderMaid{
             extensions:extensionTools,
             powerSpawn:powerSpawnTools?.[0]
         }
+
+        if(!Memory.workId){
+            Memory.workId = {
+                studyroom:0,
+                garage:0,
+                kitchen:0,
+                bedroom:0,
+                balcony:0,
+                warehouse:0
+            }
+        }
         // TODO
         return OK;
     }
@@ -58,7 +68,13 @@ export default class PinkMaid extends AreaLeaderMaid{
                 if(letter.work == "birth"){
                     let length = this.checkTask(letter.from.area.type,letter.detail.maidType);
                     if(length > letter.detail.number){
-                        let task = new BirthWorkMaidTask(letter.from.area.type,letter.detail.maidType,letter.priority);
+                        const detail:birthTaskDetail = {
+                            body:BODYS.workMaid.level[this.praetorium.level][letter.detail.maidType],
+                            name:`${this.praetorium.house.room}_${letter.from.area.type}_${this.generateWorkId(letter.from.area.type)}`,
+                            workArea:letter.from.area.type,
+                            maidType:letter.detail.maidType
+                        }
+                        const task = new BirthWorkMaidTask(letter.priority,detail);
                         this.area.taskList.add(task);
                         printDebug(`one birth task: ${JSON.stringify(task)} add to list resent tasks : ${this.area.taskList.all.length}`)
                     }
@@ -71,7 +87,7 @@ export default class PinkMaid extends AreaLeaderMaid{
     private checkTask(area:AREAS,maidType:MaidType):number{
         return this.area.taskList.getTasksByType("birth").filter((t)=>{
             const task = t as BirthWorkMaidTask;
-            return task.taskArea==area && task.maidType==maidType;
+            return task.taskArea==area && task.detail.maidType==maidType;
         }).length;
     }
 
@@ -87,24 +103,37 @@ export default class PinkMaid extends AreaLeaderMaid{
             if(birthTask.state == "inLine"){
                 for(let i in spawning){
                     if(!spawning[i] && birthTask.canSpawnIn(spawns[i].name)){
-                        const body = BODYS.workMaid.level[this.praetorium.level][birthTask.maidType];
-                        const name = `${this.praetorium.house.room}_${birthTask.workArea}`// TODO:还没写完
-                        let err = spawns[i].spawnCreep(body,name);
-                        birthTask.state = "inProgress";
+                        
+                        let err = spawns[i].spawnCreep(birthTask.detail.body,birthTask.detail.name,{
+                            memory:{team:"workMaid"},
+                            energyStructures:this.energyOrder,
+                            directions:birthTask.detail.dirctions
+                        });
+                        if(err == OK){
+                            spawning[i] = true;
+                            birthTask.birthTool = this.area.tools.spawns[i];
+                            birthTask.state = "inProgress";
+                        }
                     }
                 }
             }else if(birthTask.state == "inProgress"){
+                if(birthTask.birthTool.get().spawning.name == birthTask.detail.name){
 
+                }
             }
 
         }
         return OK;
     }
 
+    private generateWorkId(area:AREAS){
+        return Memory.workId[area]++;
+    }
 
     public say(saying: string): void {
         printSay(this.name,saying,"pink");
     }
 
     public area: Bedroom;
+    private energyOrder = [];
 }
